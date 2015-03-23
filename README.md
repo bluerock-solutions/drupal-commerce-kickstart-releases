@@ -25,7 +25,7 @@ The submodule deployment versions with no sites directory are on the 'no_sites' 
 * `tar -xzf commerce_kickstart-$vdrupal-core.tar.gz` # Dump in files from downloaded archive
 * `rm commerce_kickstart-$vdrupal-core.tar.gz` # Remove downloaded archive
 * `git add --all`
-* `git commit -m "$(echo -e "Drupal $vdrupal\n\n$(git log $vdrupal -n 1)")"`
+* `git commit -m "$(echo -e "Import $vdrupal\n\n$(md5sum commerce_kickstart-$vdrupal-core.tar.gz)")"`
 * `git tag vanilla/$vdrupal`
 * `git checkout no_sites`
 * `git merge vanilla/$vdrupal --no-commit`
