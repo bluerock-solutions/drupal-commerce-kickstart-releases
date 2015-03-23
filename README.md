@@ -22,10 +22,11 @@ The submodule deployment versions with no sites directory are on the 'no_sites' 
 * delete (use rm) * .gitignore .htaccess (need to remove all file & dirs EXCEPT .git)
 * `ls -A` # should show .git only
 * `wget http://ftp.drupal.org/files/projects/commerce_kickstart-$vdrupal-core.tar.gz` # Download next version tar.gz file from https://www.drupal.org/project/commerce_kickstart
-* `tar -xzf commerce_kickstart-$vdrupal-core.tar.gz` # Dump in files from downloaded archive
-* `rm commerce_kickstart-$vdrupal-core.tar.gz` # Remove downloaded archive
+* `tar --strip-components=1 -xzf commerce_kickstart-$vdrupal-core.tar.gz` # Dump in files from downloaded archive
 * `git add --all`
+* `git reset HEAD commerce_kickstart-$vdrupal-core.tar.gz` # Don't commit archive
 * `git commit -m "$(echo -e "Import $vdrupal\n\n$(md5sum commerce_kickstart-$vdrupal-core.tar.gz)")"`
+* `rm commerce_kickstart-$vdrupal-core.tar.gz` # Remove downloaded archive
 * `git tag vanilla/$vdrupal`
 * `git checkout no_sites`
 * `git merge vanilla/$vdrupal --no-commit`
