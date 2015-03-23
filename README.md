@@ -17,9 +17,7 @@ The submodule deployment versions with no sites directory are on the 'no_sites' 
 
 #####To import a new upstream release:
 
-* `git clone THIS_REPO`
-* `cd drupal-commerce-kickstart-releases`
-* `git config core.autocrlf false` # Disable autocrlf so line ending stay the same as upstream
+* `git clone --config core.autocrlf=false THIS_REPO` # Clone and disable autocrlf so line ending stay the same as upstream
 * `export vdrupal=7.x-w.yz` # set to next DCK version - eg. 7.x-2.22
 * `git checkout vanilla`
 * delete (use rm) * .gitignore .htaccess (need to remove all file & dirs EXCEPT .git)
