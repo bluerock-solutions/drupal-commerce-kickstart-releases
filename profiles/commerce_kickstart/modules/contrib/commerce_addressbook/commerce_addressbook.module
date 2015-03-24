@@ -170,8 +170,8 @@ function commerce_addressbook_profile_page_access($account, $profile_type) {
   // Check if the user can access his own page.
   if ($user->uid == $account->uid) {
     if (user_access('view own commerce_customer_profile entities')
-    || user_access('create commerce_customer_profile entities')
-    || user_access('create commerce_customer_profile entities of bundle ' . $profile_type)
+    || user_access('create commerce_customer_profile entities')
+    || user_access('create commerce_customer_profile entities of bundle ' . $profile_type)
     || user_access('view own commerce_customer_profile entities of bundle ' . $profile_type)
     || user_access('edit own commerce_customer_profile entities')
     || user_access('edit own commerce_customer_profile entities of bundle ' . $profile_type)) {
