@@ -266,13 +266,19 @@ function commerce_backoffice_product_form_alter(&$form, &$form_state, $form_id) 
     $form['status']['#options']['All'] = t('All statuses');
     $form['combine']['#attributes'] = array('placeholder' => array(t('Search by title or SKU')));
   }
+  // Alter the exposed filters for all product variations view.
+  if (isset($form['submit']['#id']) && $form['submit']['#id'] == 'edit-submit-commerce-backoffice-all-product-variations') {
+    $form['type']['#attributes'] = array('data-placeholder' => array(t('Variation types')));
+    $form['combine']['#attributes'] = array('placeholder' => array(t('Search by title or SKU')));
+    $form['status']['#options']['All'] = t('All statuses');
+  }
 }
 
 /**
  * Implement hook_views_pre_render().
  */
 function commerce_backoffice_product_views_pre_render(&$view) {
-  if ($view->name == 'commerce_backoffice_products') {
+  if (in_array($view->name, array('commerce_backoffice_products', 'commerce_backoffice_all_product_variations'))) {
     drupal_add_css(drupal_get_path('module', 'commerce_backoffice_product') . '/theme/commerce-backoffice-products.css');
   }
 }

@@ -50,7 +50,6 @@ function oauthconnector_list_fields() {
         'title' => check_plain($field['title']),
         'operations' => theme('links', array('links' => $operations, 'attributes' => array('class' => array('links', 'inline')))),
       ),
-      'class' => (!empty($provider->disabled) ? array('oauthconnector-provider-disabled') : ''),
     );
   }
   $build['table'] = array(
@@ -634,19 +633,19 @@ function oauthconnector_presets() {
   $twitter->mapping = array(
     'fields' => array(
       'uid' => array(
-        'resource' => 'https://api.twitter.com/1/account/verify_credentials.json',
+        'resource' => 'https://api.twitter.com/1.1/account/verify_credentials.json',
         'method post' => 0,
         'field' => 'id',
         'querypath' => 0,
       ),
       'name' => array(
-        'resource' => 'https://api.twitter.com/1/account/verify_credentials.json',
+        'resource' => 'https://api.twitter.com/1.1/account/verify_credentials.json',
         'method post' => 0,
         'field' => 'name',
         'querypath' => 0,
       ),
       'avatar' => array(
-        'resource' => 'https://api.twitter.com/1/account/verify_credentials.json',
+        'resource' => 'https://api.twitter.com/1.1/account/verify_credentials.json',
         'method post' => 0,
         'field' => 'profile_image_url',
         'querypath' => 0,
@@ -739,7 +738,7 @@ function oauthconnector_presets() {
     'signature method' => 'HMAC-SHA1',
     'authentication realm' => 'authorization_code',
     'request token endpoint' => 'none',
-    'authorization scope' => 'https://www.googleapis.com/auth/userinfo.profile',
+    'authorization scope' => 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
     'authorization endpoint' => '/o/oauth2/auth',
     'access token endpoint' => '/o/oauth2/token',
   );

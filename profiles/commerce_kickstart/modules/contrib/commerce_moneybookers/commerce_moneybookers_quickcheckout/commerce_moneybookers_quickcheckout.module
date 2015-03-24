@@ -90,19 +90,21 @@ function commerce_moneybookers_quickcheckout_settings_form($settings = NULL) {
   $form['merchant_email'] = array(
     '#type' => 'textfield',
     '#title' => t('Moneybookers merchant email address'),
-    '#description' => t('The email address associated with the Moneybookers Quick Checkout account.'),
+    '#description' => t('The email address associated with your Moneybookers Quick Checkout account.'),
     '#default_value' => $settings['merchant_email'],
     '#required' => TRUE,
   );
   $form['password'] = array(
     '#type' => 'textfield',
     '#title' => t('Password'),
+    '#description' => t('The password associated with your Moneybookers Quick Checkout account.'),
     '#default_value' => $settings['password'],
     '#required' => TRUE,
   );
   $form['secret'] = array(
     '#type' => 'textfield',
     '#title' => t('Secret word'),
+    '#description' => t('You can create your secret word under "Merchant tools" on your Moneybookers account page.'),
     '#default_value' => $settings['secret'],
     '#required' => TRUE,
   );
@@ -220,16 +222,15 @@ function commerce_moneybookers_quickcheckout_submit_form($payment_method, $pane_
 
   $settings = $payment_method['settings'];
   // Only show payment method options if the setting is selected.
-  if (isset($settings['show_payment_methods']) && $settings['show_payment_methods'] == 1) {
-    $form['quickcheckout_method'] = array(
-      '#type' => 'radios',
-      '#title' => t('Payment method'),
-      '#description' => t('Select your preferred payment method.'),
-      '#default_value' => 'acc',
-      '#options' => commerce_moneybookers_quickcheckout_enabled_methods($payment_method['settings']),
-      '#required' => TRUE,
-    );
-  }
+  $form['quickcheckout_method'] = array(
+    '#type' => 'radios',
+    '#title' => t('Payment method'),
+    '#description' => t('Select your preferred payment method.'),
+    '#default_value' => 'acc',
+    '#options' => commerce_moneybookers_quickcheckout_enabled_methods($payment_method['settings']),
+    '#required' => TRUE,
+    '#access' => (isset($settings['show_payment_methods']) && $settings['show_payment_methods'] == 1),
+  );
 
   return $form;
 }
@@ -242,7 +243,6 @@ function commerce_moneybookers_quickcheckout_submit_form($payment_method, $pane_
 function commerce_moneybookers_quickcheckout_submit_form_submit($payment_method, $pane_form, $pane_values, &$order, $charge) {
   // Merge in values from the order.
   $order->data['quickcheckout']['quickcheckout_method'] = $pane_values['quickcheckout_method'];
-  $order->data['quickcheckout']['charge'] = $charge;
 }
 
 /**
@@ -295,13 +295,12 @@ function commerce_moneybookers_quickcheckout_order_form($form, &$form_state, $or
   drupal_add_js(drupal_get_path('module', 'commerce_moneybookers_quickcheckout') . '/commerce_moneybookers_quickcheckout.js');
 
   // Load the customer profile for the order.
-  $profile = commerce_customer_profile_load($order->commerce_customer_billing[LANGUAGE_NONE][0]['profile_id']);
-  $address = $profile->commerce_customer_address[LANGUAGE_NONE][0];
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  $address = $order_wrapper->commerce_customer_billing->commerce_customer_address->value();
 
   // Prepare the order details.
   $data = array();
   $data['pay_to_email'] = $settings['merchant_email'];
-  $data['transaction_id'] = $order->order_id;
   $data['recipient_description'] = variable_get('site_name', '');
 
   // Add the customer's e-mail address.
@@ -321,15 +320,16 @@ function commerce_moneybookers_quickcheckout_order_form($form, &$form_state, $or
     $data['firstname'] = $address['first_name'];
     $data['lastname'] = $address['last_name'];
   }
-
   $data['address'] = $address['thoroughfare'];
   $data['address2'] = $address['premise'];
   $data['postal_code'] = $address['postal_code'];
   $data['city'] =  $address['locality'];
   $data['country'] = $address['country'];
 
-  $data['amount'] = $order->data['quickcheckout']['charge']['amount'] / 100;
-  $data['currency'] = $order->data['quickcheckout']['charge']['currency_code'];
+  // Take the amount from the order balance.
+  $balance = commerce_payment_order_balance($order);
+  $data['amount'] = commerce_currency_amount_to_decimal($balance['amount'], $balance['currency_code']);
+  $data['currency'] = $balance['currency_code'];
 
   $data['hide_login'] = $settings['hide_login'];
   $data['status_url'] = $settings['status'];
@@ -370,7 +370,7 @@ function commerce_moneybookers_quickcheckout_order_form($form, &$form_state, $or
   );
 
   $form['iframe_moneybookers'] = array(
-    '#markup' => '<iframe width="600" height="800" scrolling="no" frameborder="0" name="iframe_moneybookers" id="iframe_moneybookers" src="' . url('commerce_moneybookers/quickcheckout_waiting_page') . '" />',
+    '#markup' => '<iframe width="600" height="800" scrolling="no" frameborder="0" name="iframe_moneybookers" id="iframe_moneybookers" src="' . url('commerce_moneybookers/quickcheckout_waiting_page') . '"></iframe>',
   );
 
   return $form;

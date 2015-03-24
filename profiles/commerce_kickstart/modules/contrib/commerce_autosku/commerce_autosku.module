@@ -41,7 +41,6 @@ function commerce_autosku_form_commerce_product_ui_product_type_form_alter(&$for
     '#type' => 'textfield',
     '#title' => t('SKU Pattern'),
     '#default_value' => $pattern,
-    '#maxlength' => 255,
     '#states' => array(
       'required' => array(
         ':input[name="product_type[autosku_status]"]' => array('checked' => TRUE),
@@ -199,4 +198,17 @@ function commerce_autosku_cleanstring($string) {
     $string = transliteration_get($string);
   }
   return preg_replace(COMMERCE_AUTOSKU_DISALLOWED, COMMERCE_AUTOSKU_REPLACEMENT, $string);
+}
+
+/**
+ * Implements hook_features_pipe_COMPONENT_alter().
+ *
+ * Add the autosku settings to the export when the product type is selected.
+ */
+function commerce_autosku_features_pipe_commerce_product_type_alter(&$pipe, $data, $export) {
+  if($export['component'] == 'commerce_product_type') {
+    foreach($data as $type) {
+      $pipe['commerce_autosku_patterns'][] = $type;
+    }
+  }
 }
