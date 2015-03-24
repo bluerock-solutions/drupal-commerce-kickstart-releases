@@ -84,7 +84,7 @@
 
 	$.fn.bxSlider = function(options){
 		
-		if(this.length == 0) return;
+		if(this.length == 0) return this;
 		
 		// support mutltiple elements
 		if(this.length > 1){
@@ -251,6 +251,9 @@
 				if(slider.settings.auto && slider.settings.autoControls) appendControlsAuto();
 				// if any control option is requested, add the controls wrapper
 				if(slider.settings.controls || slider.settings.autoControls || slider.settings.pager) slider.viewport.after(slider.controls.el);
+			// if ticker mode, do not allow a pager
+			}else{
+				slider.settings.pager = false;
 			}
 			// preload all images, then perform final DOM / CSS modifications that depend on images being loaded
 			preloadSelector.imagesLoaded(start);
@@ -545,7 +548,7 @@
 		 */
 		var populatePager = function(){
 			var pagerHtml = '';
-			pagerQty = getPagerQty();
+			var pagerQty = getPagerQty();
 			// loop through each pager item
 			for(var i=0; i < pagerQty; i++){
 				var linkContent = '';
@@ -788,8 +791,10 @@
 		 * Updates the direction controls (checks if either should be hidden)
 		 */
 		var updateDirectionControls = function(){
-			// if infiniteLoop is false and hideControlOnEnd is true
-			if(!slider.settings.infiniteLoop && slider.settings.hideControlOnEnd){
+			if(getPagerQty() == 1){
+				slider.controls.prev.addClass('disabled');
+				slider.controls.next.addClass('disabled');
+			}else if(!slider.settings.infiniteLoop && slider.settings.hideControlOnEnd){
 				// if first slide
 				if (slider.active.index == 0){
 					slider.controls.prev.addClass('disabled');
@@ -803,10 +808,6 @@
 					slider.controls.prev.removeClass('disabled');
 					slider.controls.next.removeClass('disabled');
 				}
-			// if slider has only one page, disable controls
-			}else if(getPagerQty() == 1){
-				slider.controls.prev.addClass('disabled');
-				slider.controls.next.addClass('disabled');
 			}
 		}
 		
@@ -1137,9 +1138,16 @@
 					var requestEl = slideIndex * getMoveBy();
 					position = slider.children.eq(requestEl).position();
 				}
-				// plugin values to be animated
-				var value = slider.settings.mode == 'horizontal' ? -(position.left - moveBy) : -position.top;
-				setPositionProperty(value, 'slide', slider.settings.speed);
+				
+				/* If the position doesn't exist 
+				 * (e.g. if you destroy the slider on a next click),
+				 * it doesn't throw an error.
+				 */
+				if ("undefined" !== typeof(position)) {
+					var value = slider.settings.mode == 'horizontal' ? -(position.left - moveBy) : -position.top;
+					// plugin values to be animated
+					setPositionProperty(value, 'slide', slider.settings.speed);
+				}
 			}
 		}
 		

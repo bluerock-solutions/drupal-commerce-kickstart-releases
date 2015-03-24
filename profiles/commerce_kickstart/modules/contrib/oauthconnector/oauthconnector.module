@@ -313,7 +313,7 @@ function oauthconnector_oauth_common_authorized($consumer, $access_token, $reque
           $connect = FALSE;
           if (empty($_SESSION['oauthconnector_login'])) {
             if ($user->uid && !empty($action['add connection callback']) && is_callable($action['add connection callback'])) {
-              $connect = $action['add connection callback']('oauthconnector_' . $provider->name, $external_uid, $user->uid);
+              $connect = $action['add connection callback']('oauthconnector_' . $provider->name, $external_uid, $user->uid, $consumer, $access_token, $request_token);
             }
           }
           elseif (!$user->uid) {

@@ -36,7 +36,7 @@ class CurrentSearchItemActive extends CurrentSearchItem {
 
       $variables = array(
         'text' => theme('current_search_keys', array('keys' => $keys, 'adapter' => $adapter)),
-        'path' => request_path(),
+        'path' => current_path(),
         'options' => array(
           'attributes' => $attributes,
           'html' => TRUE,

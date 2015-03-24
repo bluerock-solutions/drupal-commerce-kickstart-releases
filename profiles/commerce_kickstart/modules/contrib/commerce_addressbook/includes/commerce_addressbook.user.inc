@@ -115,11 +115,20 @@ function commerce_addressbook_profile_options_delete_form_submit($form, &$form_s
  * Used for both ajax and non-ajax delivery of the customer profile updates.
  */
 function commerce_addressbook_profile_options_default($account, $customer_profile, $type = 'ajax') {
+  // Check if the user already has defaults addresses to know which
+  // ajax command we should use.
+  $defaults_view = commerce_addressbook_retrieve_view('commerce_addressbook_defaults', 'default', array($account->uid, $customer_profile->type));
   commerce_addressbook_set_default_profile($customer_profile);
   if ($type == 'ajax') {
     $commands = array();
-    $commands[] = ajax_command_replace('#commerce-addressbook-' . $customer_profile->type . '-default', '<div id="commerce-addressbook-' . $customer_profile->type . '-default">' . views_embed_view('commerce_addressbook_defaults', 'default', $account->uid, $customer_profile->type) . '</div>');
     $commands[] = ajax_command_replace('#commerce-addressbook-' . $customer_profile->type . '-list', '<div id="commerce-addressbook-' . $customer_profile->type . '-list">' . views_embed_view('commerce_addressbook', 'default', $account->uid, $customer_profile->type) . '</div>');
+    $defaults_html = '<div id="commerce-addressbook-' . $customer_profile->type . '-default">' . views_embed_view('commerce_addressbook_defaults', 'default', $account->uid, $customer_profile->type) . '</div>';
+    if (empty($defaults_view->result)) {
+      $commands[] = ajax_command_after('#commerce-addressbook-' . $customer_profile->type . '-list', $defaults_html);
+    }
+    else {
+      $commands[] = ajax_command_replace('#commerce-addressbook-' . $customer_profile->type . '-default', $defaults_html);
+    }
     ajax_deliver(array('#type' => 'ajax', '#commands' => $commands));
   }
   else {

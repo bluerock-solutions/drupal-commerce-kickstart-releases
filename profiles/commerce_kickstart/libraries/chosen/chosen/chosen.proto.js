@@ -207,6 +207,7 @@ Copyright (c) 2011 by Harvest
     };
 
     AbstractChosen.prototype.results_update_field = function() {
+      this.set_default_text();
       if (!this.is_multiple) {
         this.results_reset_cleanup();
       }
