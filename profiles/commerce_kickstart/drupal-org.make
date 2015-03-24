@@ -3,14 +3,14 @@ core = 7.x
 api = 2
 
 ; Basic contributed modules.
-projects[ctools][version] = 1.5
+projects[ctools][version] = 1.6
 projects[ctools][subdir] = "contrib"
-projects[entity][version] = 1.5
+projects[entity][version] = 1.6
 projects[entity][subdir] = "contrib"
 projects[entityreference][version] = 1.1
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][patch][] = "http://drupal.org/files/1580348-universal-formatters-17.patch"
-projects[rules][version] = 2.7
+projects[rules][version] = 2.9
 projects[rules][subdir] = "contrib"
 projects[views][version] = 3.10
 projects[views][subdir] = "contrib"
@@ -156,7 +156,7 @@ projects[mailsystem][version] = 2.34
 projects[mailsystem][subdir] = "contrib"
 projects[mimemail][version] = 1.0-beta3
 projects[mimemail][subdir] = "contrib"
-projects[token][version] = 1.5
+projects[token][version] = 1.6
 projects[token][subdir] = "contrib"
 projects[token][patch][] = "http://drupal.org/files/token-token_asort_tokens-1712336_0.patch"
 projects[eva][version] = 1.2
