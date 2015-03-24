@@ -1,5 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
-@import url(http://fonts.googleapis.com/css?family=Gentium+Basic:400,700);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
+@import url(//fonts.googleapis.com/css?family=Gentium+Basic:400,700);
 /* Include Default Variables & Mixins */
 /* End Variables & Mixins */
 /**************************************************
@@ -35,9 +35,6 @@
 **********************************************/
 #block-views-demo-content-slideshow-block-1 {
   /* HP blocks: Slideshow */ }
-  #block-views-demo-content-slideshow-block-1 .views-field-nothing {
-    bottom: -100px;
-    left: 34%; }
   #block-views-demo-content-slideshow-block-1 .bx-prev {
     margin-right: 0;
     /* RTL */

@@ -91,7 +91,9 @@ input.form-radio + label::before {
     padding: 0 10px 0 0;
   }
 }
-
+#powered_by_drupal_commerce {
+  float: right;
+}
 #credit {
   float: left;
 

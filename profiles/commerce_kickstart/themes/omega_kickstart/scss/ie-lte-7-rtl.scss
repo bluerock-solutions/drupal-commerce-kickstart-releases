@@ -332,25 +332,30 @@ div.messages.commerce-add-to-cart-confirmation {
 /**
 * Checkout progress
 */
-ol.inline.commerce-checkout-progress li {
-  background-image: url('../images/bg_checkout_progress_ie-rtl.png');
-  background-position: left center;
-  background-repeat: no-repeat;
-  float: right; /* RTL */
-  right: auto;
-  left: -5px;
-  padding-right: 25px;
-  padding-left: 50px;
+ul.inline.commerce-checkout-progress,
+ol.inline.commerce-checkout-progress {
+  li {
+    background-image: url('../images/bg_checkout_progress_ie-rtl.png');
+    background-position: left center;
+    background-repeat: no-repeat;
+    float: right; /* RTL */
+    right: auto;
+    left: -5px;
+    padding-right: 25px;
+    padding-left: 50px;
+
+    &.active {
+      background-image: url('../images/bg_checkout_progress_ie-rtl.png');
+    }
+    &.previous {
+      background-image: url('../images/bg_checkout_progress_ie_visited-rtl.png');
+    }
+    &.last {
+      background-image: url('../images/bg_checkout_progress_ie_last-rtl.png');
+    }
+    &.active.last {
+      background-image: url('../images/bg_checkout_progress_ie_last-rtl.png');
+    }
+  }
 }
-ol.inline.commerce-checkout-progress li.active {
-  background-image: url('../images/bg_checkout_progress_ie-rtl.png');
-}
-ol.inline.commerce-checkout-progress li.previous {
-  background-image: url('../images/bg_checkout_progress_ie_visited-rtl.png');
-}
-ol.inline.commerce-checkout-progress li.last {
-  background-image: url('../images/bg_checkout_progress_ie_last-rtl.png');
-}
-ol.inline.commerce-checkout-progress li.active.last {
-  background-image: url('../images/bg_checkout_progress_ie_last-rtl.png');
-}
+

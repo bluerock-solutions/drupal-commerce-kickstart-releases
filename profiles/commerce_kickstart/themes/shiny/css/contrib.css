@@ -31,7 +31,7 @@
 }
 
 .field-type-commerce-product-reference fieldset .fieldset-legend {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #cccccc;
   margin: 0 0 0 15px;
   /* LTR */
   padding: 5px 0 5px 0;
@@ -56,7 +56,7 @@
   padding-top: 40px;
 }
 .field-widget-inline-entity-form .ief-form-bottom > .fieldset-wrapper {
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding: 15px;
 }
 .field-widget-inline-entity-form .ief-form-bottom > .fieldset-wrapper .fieldset-legend,
@@ -91,7 +91,7 @@
 }
 
 .field-type-commerce-product-reference > div > div.form-wrapper > fieldset > div.fieldset-wrapper {
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding: 5px 15px;
 }
 .field-type-commerce-product-reference > div > div.form-wrapper > fieldset > div.fieldset-wrapper > fieldset .fieldset-wrapper,
@@ -137,10 +137,11 @@
 .ief-row-form .ief-entity-submit:focus {
   color: #fff;
 }
-.field-widget-inline-entity-form fieldset fieldset .fieldset-wrapper .ief-entity-submit:hover, .field-widget-inline-entity-form fieldset fieldset .fieldset-wrapper .ief-entity-submit:focus, .field-widget-inline-entity-form fieldset fieldset .fieldset-wrapper .ief-entity-submit:active,
+.field-widget-inline-entity-form fieldset fieldset .fieldset-wrapper .ief-entity-submit:hover, .field-widget-inline-entity-form fieldset fieldset .fieldset-wrapper .ief-entity-submit:focus, .field-widget-inline-entity-form fieldset fieldset .fieldset-wrapper .ief-entity-submit:active, .field-widget-inline-entity-form fieldset fieldset .fieldset-wrapper .ief-entity-submit:disabled,
 .ief-row-form .ief-entity-submit:hover,
 .ief-row-form .ief-entity-submit:focus,
-.ief-row-form .ief-entity-submit:active {
+.ief-row-form .ief-entity-submit:active,
+.ief-row-form .ief-entity-submit:disabled {
   background: #359ff2;
   box-shadow: 0 1px 2px #cccccc, inset 0 1px 1px #7bb8ef;
   color: #fff;
@@ -205,7 +206,7 @@
 .field-widget-inline-entity-form .ief-entity-table tr.even,
 .field-widget-inline-entity-form .ief-entity-table tr.odd {
   background: #f1f1f1;
-  border-bottom: 1px solid #BEBFB9;
+  border-bottom: 1px solid #bebfb9;
 }
 
 .field-widget-inline-entity-form .ief-entity-table tr:hover,
@@ -215,16 +216,16 @@ tr.even {
 
 .field-widget-inline-entity-form .ief-entity-table .ief-row-entity-form {
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border-width: 0 1px 1px;
 }
 
 .field-widget-inline-entity-form .ief-entity-table tr.ief-row-entity-form {
   background: #DFF2FB;
-  border: 1px solid #AFDBE9;
-  -moz-box-shadow: 0 0 5px #fff;
-  -webkit-box-shadow: 0 0 5px #fff;
-  box-shadow: 0 0 5px #fff;
+  border: 1px solid #afdbe9;
+  -moz-box-shadow: 0 0 5px white;
+  -webkit-box-shadow: 0 0 5px white;
+  box-shadow: 0 0 5px white;
 }
 
 .ief-row-entity .ief-entity-operations {
@@ -370,9 +371,9 @@ tr.even {
 .entity-commerce-order .content-right .commerce-backoffice-order-status-label {
   background: #ffedcb;
   border: 1px solid #ffcb69;
-  -moz-box-shadow: inset 0 0 5px #fff;
-  -webkit-box-shadow: inset 0 0 5px #fff;
-  box-shadow: inset 0 0 5px #fff;
+  -moz-box-shadow: inset 0 0 5px white;
+  -webkit-box-shadow: inset 0 0 5px white;
+  box-shadow: inset 0 0 5px white;
   margin-top: 0px;
 }
 
@@ -403,10 +404,11 @@ tr.even {
 .view-commerce-message-messages #commerce-backoffice-message-form input.form-submit:focus {
   color: #fff;
 }
-.entity-commerce-order .commerce-backoffice-order-status-form .form-submit:hover, .entity-commerce-order .commerce-backoffice-order-status-form .form-submit:focus, .entity-commerce-order .commerce-backoffice-order-status-form .form-submit:active,
+.entity-commerce-order .commerce-backoffice-order-status-form .form-submit:hover, .entity-commerce-order .commerce-backoffice-order-status-form .form-submit:focus, .entity-commerce-order .commerce-backoffice-order-status-form .form-submit:active, .entity-commerce-order .commerce-backoffice-order-status-form .form-submit:disabled,
 .view-commerce-message-messages #commerce-backoffice-message-form input.form-submit:hover,
 .view-commerce-message-messages #commerce-backoffice-message-form input.form-submit:focus,
-.view-commerce-message-messages #commerce-backoffice-message-form input.form-submit:active {
+.view-commerce-message-messages #commerce-backoffice-message-form input.form-submit:active,
+.view-commerce-message-messages #commerce-backoffice-message-form input.form-submit:disabled {
   background: #359ff2;
   box-shadow: 0 1px 2px #cccccc, inset 0 1px 1px #7bb8ef;
   color: #fff;
@@ -429,7 +431,7 @@ tr.even {
 
 .entity-commerce-order .field-name-commerce-order-total .field-items {
   background: #DFF2FB;
-  border: 1px solid #AFDBE9;
+  border: 1px solid #afdbe9;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -457,7 +459,7 @@ tr.even {
 }
 
 .entity-commerce-order .field-name-commerce-order-total .field-items .component-type-commerce-price-formatted-amount td {
-  border-top: 2px solid #AFDBE9;
+  border-top: 2px solid #afdbe9;
   font-weight: 700;
 }
 
@@ -480,12 +482,12 @@ tr td:last-child {
 }
 
 #panes tr td:last-child {
-  border-right: 1px solid #BEBFB9;
+  border-right: 1px solid #bebfb9;
   /* LTR */
 }
 
 #blocks tr td:last-child {
-  border-right: 1px solid #BEBFB9;
+  border-right: 1px solid #bebfb9;
   /* LTR */
 }
 
@@ -546,13 +548,13 @@ tr td:last-child {
 }
 
 .view-commerce-message-messages .form-type-textarea .filter-wrapper {
-  border: 1px solid #eee;
+  border: 1px solid #eeeeee;
   padding: 0 15px 10px;
 }
 
 .commerce-backoffice-view tr.views-row-active {
-  background: #DFF2FB !important;
-  border: 1px solid #AFDBE9;
+  background: #dff2fb !important;
+  border: 1px solid #afdbe9;
 }
 
 .commerce-backoffice-view tr.views-row-active td {
@@ -655,10 +657,10 @@ html.js .view-commerce-message-messages .view-footer fieldset.collapsible .field
 /* Rules Pages */
 /* This fixes a firefox outline bug */
 #rules-ui-edit-element fieldset .fieldset-wrapper {
-  border: 1px solid #ccc;
-  -moz-box-shadow: inset 0 0 1px #fff;
-  -webkit-box-shadow: inset 0 0 1px #fff;
-  box-shadow: inset 0 0 1px #fff;
+  border: 1px solid #cccccc;
+  -moz-box-shadow: inset 0 0 1px white;
+  -webkit-box-shadow: inset 0 0 1px white;
+  box-shadow: inset 0 0 1px white;
   outline: 0;
 }
 
@@ -766,7 +768,7 @@ td.views-field-operations-dropbutton .ctools-dropbutton-processed {
 }
 
 .commerce-discount-form .form-item-commerce-discount-type label {
-  border-bottom: 1px solid #CCCCCC;
+  border-bottom: 1px solid #cccccc;
 }
 
 .commerce-discount-form .form-item-commerce-discount-type .form-radios label {
@@ -817,11 +819,11 @@ td.views-field-operations-dropbutton .ctools-dropbutton-processed {
 
 #ui-datepicker-div {
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
 }
 
 .ui-datepicker .ui-datepicker-title select {
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
 }
 
 .field-type-commerce-line-item-reference .add-line-item {
@@ -899,7 +901,7 @@ html.js #-commerce-kickstart-help-store fieldset.collapsible {
 }
 
 .views-exposed-form .form-item input {
-  border: 1px solid #C8C8C8;
+  border: 1px solid #c8c8c8;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -999,7 +1001,7 @@ html.js .views-exposed-form .form-item input.throbbing {
 }
 
 /* Edit Checkboxes only in Webkit which will render properly. */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
   .commerce-backoffice-view .vbo-views-form #edit-select .fieldset-wrapper {
     padding: 3px 0 0 20px;
     /* LTR */
@@ -1017,8 +1019,8 @@ html.js .views-exposed-form .form-item input.throbbing {
     background-position: 0 -20px;
   }
 
-  #taxonomy-manager-tree input.form-checkbox,
-  #taxonomy-manager-tree input.form-radio {
+  .form-type-taxonomy-manager-tree input.form-checkbox,
+  .form-type-taxonomy-manager-tree input.form-radio {
     -webkit-appearance: none;
     appearance: none;
     border: 0;
@@ -1027,19 +1029,27 @@ html.js .views-exposed-form .form-item input.throbbing {
     width: 20px;
     background: transparent url("../images/toggles.png") no-repeat 0 0;
   }
-  #taxonomy-manager-tree input.form-checkbox:checked {
+  .form-type-taxonomy-manager-tree input.form-checkbox:checked {
     background-position: 0 -20px;
   }
-  #taxonomy-manager-tree input.form-radio {
+  .form-type-taxonomy-manager-tree input.form-radio {
     background-position: 0 -40px;
   }
-  #taxonomy-manager-tree input.form-radio:checked {
+  .form-type-taxonomy-manager-tree input.form-radio:checked {
     background-position: 0 -60px;
   }
-  #taxonomy-manager-tree .form-disabled input.form-checkbox {
+  .form-type-taxonomy-manager-tree .form-disabled input.form-checkbox {
     opacity: .4;
   }
 }
+/* Form Fix for Firefox */
+@-moz-document url-prefix() {
+  .form-type-taxonomy-manager-tree input.form-checkbox,
+  .form-type-taxonomy-manager-tree input.form-radio {
+    opacity: 1;
+  }
+}
+
 /* Bulk Operations Select */
 .vbo-views-form .form-item-operation {
   float: left;
@@ -1108,10 +1118,10 @@ html.js .vbo-views-form #edit-select fieldset .fieldset-wrapper {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #C8C8C8;
-  -moz-box-shadow: inset 0 0 1px #fff;
-  -webkit-box-shadow: inset 0 0 1px #fff;
-  box-shadow: inset 0 0 1px #fff;
+  border: 1px solid #c8c8c8;
+  -moz-box-shadow: inset 0 0 1px white;
+  -webkit-box-shadow: inset 0 0 1px white;
+  box-shadow: inset 0 0 1px white;
   font-size: 14px;
   line-height: 1em;
   text-transform: capitalize;
@@ -1143,7 +1153,7 @@ html.js .vbo-views-form #edit-select fieldset .fieldset-wrapper {
 }
 
 .ctools-dropbutton-processed .ctools-content {
-  border-right: 1px solid #fff;
+  border-right: 1px solid white;
   /* LTR */
 }
 

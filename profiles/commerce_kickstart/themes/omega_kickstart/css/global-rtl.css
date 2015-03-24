@@ -1,5 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
-@import url(http://fonts.googleapis.com/css?family=Gentium+Basic:400,700);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
+@import url(//fonts.googleapis.com/css?family=Gentium+Basic:400,700);
 /* Include Default Variables & Mixins */
 /* End Variables & Mixins */
 /**************************************************
@@ -386,20 +386,26 @@ div.messages.commerce-add-to-cart-confirmation .views-field-title {
 /**
 * Checkout progress
 */
+ul.inline.commerce-checkout-progress,
 ol.inline.commerce-checkout-progress {
   margin-left: 10px; }
+  ul.inline.commerce-checkout-progress li,
   ol.inline.commerce-checkout-progress li {
     float: right;
     /* RTL */
     padding: 15px 35px 15px 20px; }
+    ul.inline.commerce-checkout-progress li:after,
     ol.inline.commerce-checkout-progress li:after {
       background: transparent url("../images/bg_checkout_progress-rtl.png") left center no-repeat;
       float: left;
       right: auto;
       left: -25px; }
+    ul.inline.commerce-checkout-progress li.last:after,
     ol.inline.commerce-checkout-progress li.last:after {
       background: #efefef url("../images/bg_checkout_progress_last-rtl.png") left center no-repeat; }
-    ol.inline.commerce-checkout-progress li.active:after, ol.inline.commerce-checkout-progress li.last.active:after {
+    ul.inline.commerce-checkout-progress li.active:after, ul.inline.commerce-checkout-progress li.last.active:after,
+    ol.inline.commerce-checkout-progress li.active:after,
+    ol.inline.commerce-checkout-progress li.last.active:after {
       background: transparent url("../images/bg_checkout_progress_active-rtl.png") left center no-repeat; }
 
 /**
@@ -536,25 +542,24 @@ article.comment header em {
   float: left; }
 
 /* Comment form */
-.comment-form .form-item label {
-  float: right !important;
-  padding-right: 0;
-  padding-left: 8px;
-  text-align: left; }
-  .comment-form .form-item label:after {
-    clear: both;
-    content: ":"; }
-.comment-form .form-item .form-radios .form-item {
-  float: right;
-  margin-right: 0px;
-  margin-left: 15px; }
-  .comment-form .form-item .form-radios .form-item .form-radio {
-    float: left;
-    margin-top: 4px; }
-  .comment-form .form-item .form-radios .form-item label {
-    float: inherit;
-    text-align: inherit;
-    width: auto; }
+.comment-form .form-item {
+  clear: right; }
+  .comment-form .form-item label {
+    float: right;
+    padding-right: 0;
+    padding-left: 8px;
+    text-align: left; }
+    .comment-form .form-item label:after {
+      clear: both;
+      content: ":"; }
+  .comment-form .form-item .form-radios,
+  .comment-form .form-item .form-checkboxes {
+    float: right !important; }
+    .comment-form .form-item .form-radios label,
+    .comment-form .form-item .form-checkboxes label {
+      float: inherit;
+      text-align: inherit;
+      width: auto; }
 .comment-form .form-textarea-wrapper {
   float: right; }
 

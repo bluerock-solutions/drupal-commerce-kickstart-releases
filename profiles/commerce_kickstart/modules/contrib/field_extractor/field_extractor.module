@@ -188,8 +188,31 @@ function field_extractor_field_formatter_view($entity_type, $entity, $field, $in
     'weight' => $display['weight'],
   );
 
-  $entities = entity_load($settings['entity_type'], $entity_ids);
+  // Build an alterable EFQ.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', $settings['entity_type'])
+    ->entityCondition('entity_id', $entity_ids)
+    ->addTag('field_extractor')
+    ->addMetaData('field_extractor_entity', $entity);
+  $results = $query->execute();
+  if (empty($results[$settings['entity_type']])) {
+    return array();
+  }
+  $entities = entity_load($settings['entity_type'], array_keys($results[$settings['entity_type']]));
   return field_extractor_build_element($entities, $settings['entity_type'], $extractor_settings, $instance_display);
+}
+
+/**
+ * Implements hook_entity_query_alter().
+ */
+function field_extractor_entity_query_alter($query) {
+  if (!empty($query->tags) && isset($query->tags['field_extractor'])) {
+    switch ($query->entityConditions['entity_type']['value']) {
+      case 'commerce_product':
+      case 'node':
+        $query->propertyCondition('status', 1);
+    }
+  }
 }
 
 /**
@@ -246,16 +269,6 @@ function field_extractor_build_element($entities, $entity_type, $extractor_setti
   return $element;
 }
 
-function _field_extractor_in_array($needle, $heystack) {
-  while (count($field_element[$key]) === 1) {
-    $field_element[$key] = reset($field_element[$key]);
-  }
-
-  foreach (element_children($heystack) as $key) {
-
-  }
-}
-
 /**
  * Introspects field and instance settings, and determines the correct settings
  * for the functioning of the formatter.
@@ -303,8 +316,10 @@ function field_extractor_settings($field, $instance) {
   // By default, allow entities of all bundles to be created.
   if (empty($settings['bundles'])) {
     $info = entity_get_info($settings['entity_type']);
-    foreach ($info['bundles'] as $bundle_name => $bundle_info) {
-      $settings['bundles'][] = $bundle_name;
+    if (!empty($info['bundles'])) {
+      foreach ($info['bundles'] as $bundle_name => $bundle_info) {
+        $settings['bundles'][] = $bundle_name;
+      }
     }
   }
 

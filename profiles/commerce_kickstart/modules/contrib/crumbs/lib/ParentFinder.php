@@ -20,7 +20,10 @@ class crumbs_ParentFinder {
   function getParentPath($path, &$item) {
     if (!isset($this->parents[$path])) {
       $parent_path = $this->_findParentPath($path, $item);
-      $this->parents[$path] = drupal_get_normal_path($parent_path);
+      if (is_string($parent_path)) {
+        $parent_path = drupal_get_normal_path($parent_path);
+      }
+      $this->parents[$path] = $parent_path;
     }
     return $this->parents[$path];
   }
@@ -40,12 +43,12 @@ class crumbs_ParentFinder {
         // Parent should be the front page.
         return FALSE;
       }
-      $invoke_action = new crumbs_InvokeAction_findParent($path, $item);
-      $this->pluginEngine->invokeAll_find($invoke_action);
-      $parent_path = $invoke_action->getValue();
-      $this->log[$path] = $invoke_action->getLoggedCandidates();
+      $plugin_operation = new crumbs_PluginOperation_findParent($path, $item);
+      $this->pluginEngine->invokeAll_find($plugin_operation);
+      $parent_path = $plugin_operation->getValue();
+      $this->log[$path] = $plugin_operation->getLoggedCandidates();
       if (isset($parent_path)) {
-        $item['crumbs_candidate_key'] = $invoke_action->getCandidateKey();
+        $item['crumbs_candidate_key'] = $plugin_operation->getCandidateKey();
         return $parent_path;
       }
     }

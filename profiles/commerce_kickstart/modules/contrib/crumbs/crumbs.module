@@ -77,15 +77,47 @@ function crumbs_theme($existing, $type, $theme, $path) {
  * Default theme implementation for theme('crumbs_breadcrumb_link').
  */
 function theme_crumbs_breadcrumb_link(array $item) {
-  $options = isset($item['link_options']) ? $item['link_options'] : array();
-  return l($item['link_title'], $item['link_path'], $options);
+  $options = isset($item['localized_options']) ? $item['localized_options'] : array();
+  return l($item['title'], $item['href'], $options);
 }
 
 /**
  * Default theme implementation for theme('crumbs_breadcrumb_current_page').
  */
 function theme_crumbs_breadcrumb_current_page(array $item) {
-  return check_plain($item['link_title']);
+  return check_plain($item['title']);
+}
+
+/**
+ * Implements hook_block_info()
+ */
+function crumbs_block_info() {
+
+  return array(
+    'breadcrumb' => array(
+      'info' => t('Breadcrumb (Crumbs)'),
+      'cache' => DRUPAL_NO_CACHE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_view()
+ */
+function crumbs_block_view($delta = '') {
+
+  $block = array();
+
+  switch ($delta) {
+    case 'breadcrumb':
+      $breadcrumb_data = crumbs_get_breadcrumb_data();
+      if ($breadcrumb_data) {
+        $block['content'] = $breadcrumb_data['html'];
+      }
+      break;
+  }
+
+  return $block;
 }
 
 /**
@@ -253,9 +285,9 @@ function crumbs_get_trail($path = NULL) {
  * Builds the breadcrumb based on the provided trail.
  *
  * Each breadcrumb item is a router item taken from the trail, with
- * two additional keys set:
- * - link_title: The title of the breadcrumb item as received from a plugin.
- * - link_options: An array of options passed to l() if needed.
+ * two additional/updated keys:
+ * - title: The title of the breadcrumb item as received from a plugin.
+ * - localized_options: An array of options passed to l() if needed.
  *
  * @param $trail
  *   The trail provided by crumbs_get_trail().
@@ -348,7 +380,7 @@ function crumbs_get_plugins() {
       'menu',
       'path',
       'taxonomy',
-      // Unported: 'forum'
+      'forum',
     );
 
     // Include Crumbs-provided plugins.
@@ -367,7 +399,7 @@ function crumbs_get_plugins() {
       }
       else {
         // We are using the og-7.x-2.x branch.
-        // module_load_include('inc', 'crumbs', 'plugins/crumbs.og.2');
+        module_load_include('inc', 'crumbs', 'plugins/crumbs.og.2');
       }
     }
 
@@ -431,6 +463,7 @@ function crumbs_get_router_item($path) {
     return NULL;
   }
 
+  // Some additional keys.
   if (!empty($item) && is_array($item)) {
     // 'route' is a less ambiguous name for a router path than 'path'.
     $item['route'] = $item['path'];
@@ -438,6 +471,10 @@ function crumbs_get_router_item($path) {
     $item['link_path'] = $normalpath;
     $item['alias'] = drupal_get_path_alias($normalpath);
     $item['fragments'] = explode('/', $normalpath);
+
+    if (!isset($item['localized_options'])) {
+      $item['localized_options'] = array();
+    }
 
     return $item;
   }
@@ -556,7 +593,7 @@ function crumbs_clean_token_values(&$replacements, $data = array(), $options = a
 /**
  * Interface to be used internally by the plugin engine.
  */
-interface crumbs_InvokeActionInterface_find {
+interface crumbs_PluginOperationInterface_find {
   function invoke($plugin, $plugin_key, $weight_keeper);
 }
 
@@ -564,7 +601,7 @@ interface crumbs_InvokeActionInterface_find {
 /**
  * Interface to be used internally by the plugin engine.
  */
-interface crumbs_InvokeActionInterface_alter {
+interface crumbs_PluginOperationInterface_alter {
   function invoke($plugin, $plugin_key);
 }
 

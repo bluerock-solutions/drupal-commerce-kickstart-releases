@@ -1,5 +1,5 @@
 /* Import Font Families */
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
 @import "_base.scss";
 
 /* Base Admin Theme Styles */
@@ -532,21 +532,22 @@ h1#overlay-title {
 #overlay-titlebar .add-or-remove-shortcuts {
   padding-bottom: .9em;
 }
-.footer-messages {
+#footer {
   border-top: 1px solid #efefef;
   clear: both;
   font: normal 13px/13px "Open Sans", Arial, sans-serif;
   margin: 0 40px;
 }
-body.in-maintenance .footer-messages {
+body.in-maintenance #footer {
   border: 0;
   margin: 0 auto;
   width: 960px;
 }
-#overlay #overlay-content .footer-messages {
+#overlay #overlay-content #footer {
   border-top: 0;
   color: #fff;
-  margin: 0;
+  margin: 0 0 0 -8px;
+  padding: 0 8px;
   position: absolute;
   top: 100%;
   width: 100%;
@@ -555,7 +556,8 @@ body.in-maintenance .footer-messages {
   float: right; /* LTR */
   padding: 20px 0 40px;
 }
-#powered {
+#powered_by_drupal_commerce {
+  float: left; /* LTR */
   padding-top: 20px;
 }
 body.in-maintenance #credit {

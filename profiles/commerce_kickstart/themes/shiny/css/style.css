@@ -166,7 +166,7 @@ ul.menu li.expanded {
 
 quote,
 code {
-  margin: .5em 0;
+  margin: 0.5em 0;
 }
 
 code,
@@ -475,7 +475,7 @@ dl.node-type-list dt {
   padding-left: 30px;
   /* LTR */
   padding-top: 9px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
   margin-left: 0;
   /* LTR */
   margin-bottom: 10px;
@@ -619,7 +619,7 @@ table tr.selected td {
 }
 
 table.system-status-report tr {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #cccccc;
 }
 
 table.system-status-report tr.ok {
@@ -670,7 +670,7 @@ tr td:last-child {
  *   to apply all padding to the inner .fieldset-wrapper instead.
  */
 fieldset {
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding: 2.5em 0 0 0;
   /* LTR */
   position: relative;
@@ -831,10 +831,11 @@ input.form-submit:active {
 
 input.form-button-disabled,
 input.form-button-disabled:active {
-  background: #eee none;
+  background: #eeeeee none;
   border-color: #eee;
   text-shadow: none;
   color: #999;
+  opacity: .75;
 }
 
 input.form-autocomplete,
@@ -843,7 +844,7 @@ input.form-file,
 textarea.form-textarea,
 select.form-select {
   padding: 2px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border-top-color: #999;
   background: #fff;
   color: #333;
@@ -912,7 +913,7 @@ div.admin-panel {
   margin: 0 0 20px;
   padding: 9px;
   background: #f8f8f8;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
 }
 
 div.admin-panel h3 {
@@ -946,7 +947,7 @@ div.admin-options {
   line-height: 30px;
   height: 30px;
   padding: 9px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   margin: 0 0 10px;
 }
 
@@ -1055,7 +1056,7 @@ ol.task-list li.done {
 
 .overlay #branding h1.page-title,
 .overlay #left,
-.overlay #footer {
+.overlay #feed-icons {
   display: none;
 }
 
@@ -1128,7 +1129,7 @@ div.add-or-remove-shortcuts {
 }
 
 #dashboard .dashboard-region .block {
-  border: #ccc 1px solid;
+  border: #cccccc 1px solid;
 }
 
 /* Field UI */

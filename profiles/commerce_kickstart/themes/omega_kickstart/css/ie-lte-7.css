@@ -1,5 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
-@import url(http://fonts.googleapis.com/css?family=Gentium+Basic:400,700);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
+@import url(//fonts.googleapis.com/css?family=Gentium+Basic:400,700);
 /* Include Default Variables & Mixins */
 /* End Variables & Mixins */
 /**************************************************
@@ -160,6 +160,7 @@ div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-mess
 /**
 * Checkout progress
 */
+ul.inline.commerce-checkout-progress li,
 ol.inline.commerce-checkout-progress li {
   background-image: url("../images/bg_checkout_progress_ie.png");
   background-position: right center;
@@ -171,15 +172,15 @@ ol.inline.commerce-checkout-progress li {
   /* LTR */
   right: -5px;
   /* LTR */ }
-
-ol.inline.commerce-checkout-progress li.active {
-  background-image: url("../images/bg_checkout_progress_ie.png"); }
-
-ol.inline.commerce-checkout-progress li.previous {
-  background-image: url("../images/bg_checkout_progress_ie_visited.png"); }
-
-ol.inline.commerce-checkout-progress li.last {
-  background-image: url("../images/bg_checkout_progress_ie_last.png"); }
+  ul.inline.commerce-checkout-progress li.active,
+  ol.inline.commerce-checkout-progress li.active {
+    background-image: url("../images/bg_checkout_progress_ie.png"); }
+  ul.inline.commerce-checkout-progress li.previous,
+  ol.inline.commerce-checkout-progress li.previous {
+    background-image: url("../images/bg_checkout_progress_ie_visited.png"); }
+  ul.inline.commerce-checkout-progress li.last,
+  ol.inline.commerce-checkout-progress li.last {
+    background-image: url("../images/bg_checkout_progress_ie_last.png"); }
 
 /**************************************************
 * --

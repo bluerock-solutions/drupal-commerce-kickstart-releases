@@ -143,9 +143,9 @@ function commerce_kickstart_service_provider_get_full() {
   }
 
   // Render the collected from other modules.
-  $requiremets = array(
+  $requirements = array(
     0 => array(
-      'text' => t("Doesn't exists"),
+      'text' => t("Doesn't exist"),
       'class' => 'not-exists',
     ),
     1 => array(
@@ -176,8 +176,8 @@ function commerce_kickstart_service_provider_get_full() {
     $variable['installation'] = $info['installation_proccess'];
     $variable['requirements'] = $info['requirements'];
     $variable['zebra'] = $i++ % 2 == 0 ? 'odd' : 'even';
-    $variable['status_text'] = $requiremets[$info['status']]['text'];
-    $variable['status_class'] = $requiremets[$info['status']]['class'];
+    $variable['status_text'] = $requirements[$info['status']]['text'];
+    $variable['status_class'] = $requirements[$info['status']]['class'];
 
     $output .= theme('providers_page_row', $variable);
   }
@@ -187,24 +187,180 @@ function commerce_kickstart_service_provider_get_full() {
 
 /**
  * Implements hook_commerce_kickstart_service_provider().
- *
- * Implementing the module on the behalf of Skrill.
  */
 function commerce_kickstart_service_provider_commerce_kickstart_service_provider() {
+  $kiala_teaser = t('Kiala delivers parcels to a convenient collection point selected by your customer. ');
+  $kiala_teaser .= t('Other benefits in addition to faster, more practical delivery include improved tracking and a simpler return process.');
+
+  $kiala_description = t('Sign up for Kiala’s shipping service today to benefit from this pre-installed module! Want to try it for free first?<br/>');
+  $kiala_description .= t('Get a demo account by filling out the form on the <a href="@marketplace_url">Marketplace!</a> (Available in Spain, France and Benelux regions)', array('@marketplace_url' => 'https://marketplace.commerceguys.com/partner/kiala'));
+
   return array(
     'commerce_moneybookers' => array(
-      'logo_path' => drupal_get_path('module', 'commerce_kickstart_service_provider') . '/skrill.png',
+      'logo_path' => drupal_get_path('module', 'commerce_kickstart_service_provider') . '/images/skrill.png',
       'title' => t('Skrill'),
-      'module_path' => '',
-      'category' => t('Payment provider'),
+      'category' => t('Payment providers'),
       'teaser' => t('A payment gateway that provides over 100 payment options, with 41 currencies covering 200 countries and territories through just one partner.'),
       'description' => t('A payment gateway that provides over 100 payment options, with 41 currencies covering 200 countries and territories through just one partner. <br />Great product!'),
-      'requirements' => t('Requires configuration API code to be set.'),
       'link' => 'http://skrill.com',
       'installation_proccess' => t('1. Register <br />2. Fill in API'),
+      'requirements' => t('Requires configuration API code to be set.'),
       'weight' => 0,
     ),
+    'commerce_kiala' => array(
+      'logo_path' => drupal_get_path('module', 'commerce_kickstart_service_provider') . '/images/logo-kiala.gif',
+      'title' => t('Kiala'),
+      'category' => t('Shipping methods'),
+      'teaser' => $kiala_teaser,
+      'description' => $kiala_description,
+      'requirements' => '',
+      'requirements_callback' => 'commerce_kickstart_service_provider_kiala_requirements',
+      'link' => 'http://www.kiala.com',
+      'installation_proccess' => _commerce_kickstart_service_provider_kiala_get_installation_text(),
+      'weight' => 0,
+    ),
+    'commerce_payflow' => array(
+      'logo_path' => drupal_get_path('module', 'commerce_kickstart_service_provider') . '/images/paypal.gif',
+      'title' => t('PayPal Payments Advanced / Payflow Link'),
+      'category' => t('Payment providers'),
+      'teaser' => _commerce_kickstart_service_provider_payflow_get_teaser(),
+      'description' => _commerce_kickstart_service_provider_payflow_get_teaser(),
+      'installation_proccess' => _commerce_kickstart_service_provider_payflow_get_installation_text(),
+      'link' => 'http://www.paypal.com',
+      'requirements' => '',
+      'weight' => 10,
+    ),
+    'commerce_paypal_ec' => array(
+      'logo_path' => drupal_get_path('module', 'commerce_kickstart_service_provider') . '/images/paypal.gif',
+      'title' => t('PayPal Express Checkout'),
+      'category' => t('Payment providers'),
+      'teaser' => _commerce_kickstart_service_provider_paypal_ec_get_teaser(),
+      'description' => _commerce_kickstart_service_provider_paypal_ec_get_teaser(),
+      'installation_proccess' => _commerce_kickstart_service_provider_paypal_ec_get_installation_text(),
+      'link' => 'http://www.paypal.com',
+      'requirements' => '',
+      'weight' => 10,
+    ),
   );
+}
+
+/**
+ * Return the teaser text for the PayPal EC module.
+ */
+function _commerce_kickstart_service_provider_paypal_ec_get_teaser() {
+  $text = t('Let your customers pay with PayPal, credit card, or debit card on securely hosted checkout forms.  ');
+  $text .= t('PayPal collects the necessary address and payment information and returns your customers to your site to finalize the purchase. ');
+  $text .= t('All you need to accept payments with Express Checkout is a  PayPal Business account.');
+  return $text;
+}
+
+/**
+ * Return the PayPal EC installation text.
+ */
+function _commerce_kickstart_service_provider_paypal_ec_get_installation_text() {
+  $items = array();
+  $variables = array(
+    '@paypal-url' => 'https://www.paypal.com/webapps/mpp/referral/paypal-express-checkout?partner_id=VZ6B9QLQ8LZEE',
+  );
+  $items[] = t('<a href="@paypal-url">Register for a PayPal Business account.</a>', $variables);
+  $variables += array(
+    '!store_settings' => l('Store settings > Payment methods', 'admin/commerce/config/payment-methods'),
+  );
+  $items[] = t('Enable <em>PayPal Express Checkout</em> from your !store_settings', $variables);
+  $text = t('Edit the payment method rule to configure your <em>PayPal Express Checkout</em> account credentials and transaction settings.');
+  $items[] = $text;
+  $text = t('To get your Express Checkout credentials, go to your PayPal account > Profile > My Selling Tools >API Access.');
+  $items[] = $text;
+  $variables += array(
+    '@drupal-url' => 'http://drupal.org/node/1902734',
+    '@marketplace-url' => 'https://marketplace.commerceguys.com/service/paypal',
+  );
+  $text = t('<a href="@drupal-url">Read the documentation</a> to learn how to locate your API credentials, understand the settings, and configure the checkout form to collect additional information when customers finalize the purchase on your site.', $variables);
+  $items[] = $text;
+  $text = t('Compare Express Checkout and PayPal’s other payment solutions, refer to the <a href="@marketplace-url">PayPal overview in the Commerce Marketplace</a>.', $variables);
+  $items[] = $text;
+  return theme('item_list', array('items' => $items, 'type' => 'ol'));
+}
+
+/**
+ * Return the Payflow installation text.
+ */
+function _commerce_kickstart_service_provider_payflow_get_installation_text() {
+  $items = array();
+  $variables = array(
+    '@paypal-payment-url' => 'https://www.paypal.com/webapps/mpp/referral/paypal-payments-advanced?partner_id=VZ6B9QLQ8LZEE',
+    '@paypal-payflow-url' => 'https://www.paypal.com/webapps/mpp/referral/paypal-payflow-link?partner_id=VZ6B9QLQ8LZEE',
+  );
+  $items[] = t('Register an account for <a href="@paypal-payment-url">PayPal Payments</a> or <a href="@paypal-payflow-url">Payflow Link</a>', $variables);
+  $variables += array(
+    '!store_settings' => l('Store settings > Payment methods', 'admin/commerce/config/payment-methods'),
+  );
+  $items[] = t('Enable Paypal Payment Advanced or Payflow Link from your !store_settings', $variables);
+  $text = t('Edit the payment method rule to configure your PayPal Payments Advanced or Payflow Link account credentials and transaction settings.');
+  $items[] = $text;
+  $variables += array(
+    '@drupal-url' => 'http://drupal.org/node/1902734',
+    '@marketplace-url' => 'https://marketplace.commerceguys.com/service/paypal',
+  );
+  $text = t('<a href="@drupal-url">Read the documentation for a guide</a>  for a guide to the required configuration of the service in your PayPal Payflow account settings and to learn how to connect your PayPal Payflow account to a PayPal Business account to accept PayPal payments.', $variables);
+  $items[] = $text;
+  $text = t('Compare PayPal Payments Advanced / Payflow Link with PayPal’s other payment solutions, refer to the <a href="@marketplace-url">PayPal overview in the Commerce Marketplace</a>', $variables);
+  $items[] = $text;
+  return theme('item_list', array('items' => $items, 'type' => 'ol'));
+}
+
+/**
+ * Return the teaser text for the PayFlow module.
+ */
+function _commerce_kickstart_service_provider_payflow_get_teaser() {
+  $text = t('Accept payments on your site via credit card, debit card and PayPal on secure iframes that are embedded in the Drupal Commerce checkout form. ');
+  $text .= t('With PayPal Payments Advanced, PayPal acts as your payment processor (available in the US only), while Payflow Link allows you to use the merchant account provider of your choice.');
+  return $text;
+}
+
+/**
+ * Return kiala installation text.
+ */
+function _commerce_kickstart_service_provider_kiala_get_installation_text() {
+  $text = t('Once you have an account:');
+  $text .= '<br/>';
+  $text .= '<h5>' . t('1. Add a service') . '</h5>';
+  $text .= t('Add one or more Kiala services to set up the price of your shipping on the site.')  . '<br/>';
+  $variables = array(
+    '!url' => l('"Store Settings - Shipping Methods"', 'admin/commerce/config/shipping/methods'),
+    '!kiala_url' => l('add a Kiala service', 'admin/commerce/config/shipping/services/kiala/'),
+  );
+  $text .= t('Go to the !url option in the main admin menu, then click on !kiala_url to add a service!', $variables);
+  $text .= '<h5>' . t('2. Configure your module') . '</h5>';
+  $variables += array(
+    '!edit_url' => l('edit', 'admin/commerce/config/shipping/methods/kiala/edit'),
+  );
+  $text .= t('Go to the !url option in the main admin menu, then click on !edit_url to configure your merchant ID. ', $variables);
+  $text .= t('You will also be able to edit details about which countries you will be delivering to, and how you wish to display your Kiala map.');
+  return $text;
+}
+
+/**
+ * Requirements callback for the kiala module.
+ */
+function commerce_kickstart_service_provider_kiala_requirements() {
+  $all_modules = system_rebuild_module_data();
+  $enabled_modules = module_list();
+  if (!isset($all_modules['commerce_kiala'])) {
+    return COMMERCE_KICKSTART_SERVICE_PROVIDER_MODULE_NOT_EXISTS;
+  }
+  else {
+    if (isset($enabled_modules['commerce_kiala'])) {
+      $kiala_services = commerce_shipping_services('kiala');
+      if (!empty($kiala_services)) {
+        return COMMERCE_KICKSTART_SERVICE_PROVIDER_MODULE_DEFINED;
+      }
+      return COMMERCE_KICKSTART_SERVICE_PROVIDER_MODULE_ENABLED;
+    }
+    else {
+      return COMMERCE_KICKSTART_SERVICE_PROVIDER_MODULE_EXISTS;
+    }
+  }
 }
 
 /**
@@ -242,4 +398,3 @@ function _commerce_kickstart_service_provider_add_element($type, $filename) {
 
   $function_name(drupal_get_path('module', 'commerce_kickstart_service_provider') . '/' . $type .'/' . $filename);
 }
-

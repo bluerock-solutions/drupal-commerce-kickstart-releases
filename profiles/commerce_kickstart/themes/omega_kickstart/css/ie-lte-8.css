@@ -58,28 +58,35 @@ div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-mess
 /**
 * Checkout progress
 */
+ul.inline.commerce-checkout-progress li,
 ol.inline.commerce-checkout-progress li {
   padding-right: 50px;
   padding-left: 25px; }
-  ol.inline.commerce-checkout-progress li:after, ol.inline.commerce-checkout-progress li.active:after {
+  ul.inline.commerce-checkout-progress li:after, ul.inline.commerce-checkout-progress li.active:after,
+  ol.inline.commerce-checkout-progress li:after,
+  ol.inline.commerce-checkout-progress li.active:after {
     background-image: url("../images/bg_checkout_progress_ie.png");
     background-position: right center;
     background-repeat: no-repeat;
     right: -5px; }
+  ul.inline.commerce-checkout-progress li.last:after,
   ol.inline.commerce-checkout-progress li.last:after {
     background-image: url("../images/bg_checkout_progress_ie_last.png");
     background-position: right center;
     background-repeat: no-repeat; }
+  ul.inline.commerce-checkout-progress li.last.active,
   ol.inline.commerce-checkout-progress li.last.active {
     background-image: url("../images/bg_checkout_progress_ie_active_last.png");
     background-position: left center;
     background-repeat: no-repeat;
     left: -25px;
     padding-left: 40px; }
+    ul.inline.commerce-checkout-progress li.last.active:after,
     ol.inline.commerce-checkout-progress li.last.active:after {
       background-image: url("../images/bg_checkout_progress_ie_last.png");
       background-position: right center;
       background-repeat: no-repeat; }
+  ul.inline.commerce-checkout-progress li.previous:after,
   ol.inline.commerce-checkout-progress li.previous:after {
     background-image: url("../images/bg_checkout_progress_ie_visited.png");
     background-position: right center;

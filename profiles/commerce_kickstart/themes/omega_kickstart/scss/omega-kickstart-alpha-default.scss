@@ -179,30 +179,7 @@
 */
 #block-views-demo-content-slideshow-block-1 {
   /* HP blocks: Slideshow */
-  .bx-wrapper,
-  .bx-wrapper .bx-window {
-    /*max-height: 168px;
-    width: 100% !important;*/
-  }
-  .bx-wrapper ul.event-slider {
-    //max-height: 165px;
-    //width: 100%;
-    //min-width: 344px;
-    //max-width: 344px;
-    li {
-      height: 168px;
-      margin: 0 auto;
-      width: 344px;
-      img {
-        overflow: hidden;
-      }
-      /*img {
-
-        height: auto;
-        width: 100%;
-      }*/
-    }
-  }
+  @include clearfix;
 }
 /**********************************************
 * 3.3. Zone postscript

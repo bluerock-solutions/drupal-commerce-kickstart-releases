@@ -43,12 +43,11 @@
       </div>
     </div>
   </div>
-    <div class="footer-messages clearfix">
-    <div id="credit" class="clearfix">
-      <div class="message">Proudly built by</div>
-      <div class="logo"><a href="http://commerceguys.com">Commerce Guys</a></div>
-    </div>
-    </div>
+    <?php if (isset($footer)): ?>
+      <div id="footer" class="footer-messages clearfix">
+        <?php print render($footer); ?>
+      </div>
+    <?php endif; ?>
   <?php print $page_bottom; ?>
   </div>
   </div>

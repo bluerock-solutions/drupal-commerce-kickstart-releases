@@ -1,12 +1,14 @@
 <?php
 
-
-
 /**
- * Implements hook_perm().
+ * Implements hook_permission().
  */
-function yottaa_perm() {
-  return array('administer yottaa');
+function yottaa_permission() {
+  return array(
+    'administer yottaa' => array(
+      'title' => t('Administer Yottaa'),
+    ),
+  );
 }
 
 /**
@@ -21,7 +23,7 @@ function yottaa_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('yottaa_setup_form'),
     'file' => 'yottaa.admin.inc',
-    'access arguments' => array('adminiter yottaa'),
+    'access arguments' => array('administer yottaa'),
     'type' => MENU_NORMAL_ITEM,
   );
 
@@ -30,7 +32,7 @@ function yottaa_menu() {
     'description' => 'Configure Yottaa User ID, Site ID and API Key',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('yottaa_setup_form'),
-    'access arguments' => array('adminiter yottaa'),
+    'access arguments' => array('administer yottaa'),
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => 0,
     'file' => 'yottaa.admin.inc',
@@ -42,7 +44,7 @@ function yottaa_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('yottaa_register_form'),
     'file' => 'yottaa.admin.inc',
-    'access arguments' => array('adminiter yottaa'),
+    'access arguments' => array('administer yottaa'),
     'type' => MENU_LOCAL_TASK,
     'weight' => 1,
   );

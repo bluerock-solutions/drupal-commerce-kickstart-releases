@@ -36,7 +36,7 @@ input.form-radio + label::before {
 }
 
 /* Targeting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
   select.form-select {
     padding: 5px 5px 5px 35px;
     background: white url("../images/drop-filter-rtl.png") no-repeat left center;
@@ -84,6 +84,10 @@ input.form-radio + label::before {
 }
 .overlay ul.secondary li {
   padding: 0 10px 0 0;
+}
+
+#powered_by_drupal_commerce {
+  float: right;
 }
 
 #credit {

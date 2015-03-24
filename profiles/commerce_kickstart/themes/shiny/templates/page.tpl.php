@@ -28,17 +28,14 @@
       <?php print render($page['content']); ?>
     </div>
 
-    <div id="footer">
+    <div id="feed-icons">
       <?php print $feed_icons; ?>
     </div>
 
   </div>
-  <div class="footer-messages clearfix">
-  <div id="credit" class="clearfix">
-    <div class="message">Proudly built by</div>
-    <div class="logo"><a href="http://commerceguys.com">Commerce Guys</a></div>
-  </div>
-  <div id="powered">
-    Powered by <a href="http://drupalcommerce.org">Drupal Commerce</a>
-  </div>
+  <?php if ($page['footer']):?>
+    <div id="footer">
+      <?php print render($page['footer']);?>
+    </div>
+  <?php endif;?>
   </div>

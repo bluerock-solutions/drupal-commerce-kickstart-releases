@@ -6,6 +6,7 @@ php = 5.2.4
 dependencies[] = block
 dependencies[] = commerce_addressbook
 dependencies[] = commerce_customer
+dependencies[] = commerce_shipping
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = menu
@@ -39,9 +40,9 @@ features[variable][] = user_email_verification
 features[variable][] = user_pictures
 features[variable][] = user_register
 
-; Information added by drupal.org packaging script on 2013-01-26
-version = "7.x-2.2"
+; Information added by drupal.org packaging script on 2013-02-14
+version = "7.x-2.3"
 core = "7.x"
 project = "commerce_kickstart"
-datestamp = "1359159361"
+datestamp = "1360869439"
 

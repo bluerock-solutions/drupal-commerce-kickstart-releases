@@ -31,14 +31,17 @@ function commerce_kickstart_product_ui_theme(&$existing) {
   $themes = array(
     'node__product__type' => array(
       'path' => drupal_get_path('module', 'commerce_kickstart_product_ui') . '/theme',
+      'render element' => 'elements',
       'template' => 'node--product--type',
     ),
     'node__product__type__product__list' => array(
       'path' => drupal_get_path('module', 'commerce_kickstart_product_ui') . '/theme',
+      'render element' => 'elements',
       'template' => 'node--product--type--product--list',
     ),
     'commerce_product__product_in_cart' => array(
       'path' => drupal_get_path('module', 'commerce_kickstart_product_ui') . '/theme',
+      'render element' => 'elements',
       'template' => 'commerce_product__product_in_cart',
     ),
   );
@@ -78,10 +81,14 @@ function commerce_kickstart_product_ui_preprocess_node(&$vars) {
   if (isset($vars['type']) && isset($product_display_types[$vars['node']->type])) {
     $vars['theme_hook_suggestions'][] = 'node__product__type';
     $vars['classes_array'][] = 'node-product-type';
-    if ($vars['view_mode'] == 'product_list') {
-      $vars['theme_hook_suggestions'][] = 'node__product__type__product__list';
-      $vars['classes_array'][] = 'node-product-type-product-list';
-    }
+    $vars['theme_hook_suggestions'][] = 'node__' . $vars['node']->type;
+    $vars['classes_array'][] = drupal_html_class('node-' . $vars['node']->type);
+    $vars['theme_hook_suggestions'][] = 'node__product__type__' . $vars['view_mode'];
+    // Backward compatibiliy with node--product--type--product--view_mode.
+    $vars['theme_hook_suggestions'][] = 'node__product__type__' . str_replace('_', '__', $vars['view_mode']);
+    $vars['classes_array'][] = drupal_html_class('node-product-type-' . $vars['view_mode']);
+    $vars['theme_hook_suggestions'][] = 'node__' . $vars['node']->type . '__'  . $vars['view_mode'];
+    $vars['classes_array'][] = drupal_html_class('node-' . $vars['node']->type . '-' . $vars['view_mode']);
   }
 }
 
@@ -166,11 +173,24 @@ function commerce_kickstart_product_ui_page_alter(&$page) {
  * Process variables for entity.tpl.php.
  */
 function commerce_kickstart_product_ui_preprocess_entity(&$variables) {
-  if ($variables['elements']['#view_mode'] == 'product_in_cart') {
+  if ($variables['entity_type'] == 'commerce_product' && $variables['view_mode'] == 'product_in_cart') {
     $variables['title'] = "";
     $variables['url'] = "";
     // Need to remove the clearfix class from default entity.tpl.php for IE7/8...
     $variables['theme_hook_suggestions'][] = $variables['elements']['#entity_type'] . '__' . $variables['elements']['#view_mode'];
+  }
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ *
+ * Hide the title if the title_field is not empty.
+ */
+function commerce_kickstart_product_ui_entity_view_alter(&$build, $type) {
+  if ($type == 'commerce_product') {
+    if (!empty($build['#entity']->title_field) && isset($build['title'])) {
+      $build['title']['#access'] = FALSE;
+    }
   }
 }
 
