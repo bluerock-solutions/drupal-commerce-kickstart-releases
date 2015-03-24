@@ -30,13 +30,6 @@
   right: 0;
 }
 
-.ief-product-attributes .form-wrapper,
-.ief-product-details .form-wrapper {
-  float: right;
-  margin-left: 25px;
-  margin-right: 0;
-}
-
 .field-widget-inline-entity-form .fieldset-legend {
   left: auto;
   right: 0;
@@ -128,7 +121,7 @@ commerce-discount-form .field-name-commerce-discount-date .fieldset-wrapper {
 }
 
 /* Edit Checkboxes only in Webkit which will render properly. */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
   .vbo-views-form #edit-select .fieldset-wrapper {
     padding: 3px 20px 0 0;
   }

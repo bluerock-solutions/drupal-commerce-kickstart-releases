@@ -62,6 +62,8 @@ function hook_commerce_kiala_settings_info_alter(&$info) {
   $states['my_module_help_text']['default'] = t('A better default help text');
 }
 
+// -----------------------------------------------------------------------
+// Shipping Service CRUD Hooks
 
 /**
  * Shipping Service Insert
@@ -104,4 +106,48 @@ function hook_commerce_kiala_service_update($shipping_service, $skip_reset) {
 function hook_commerce_kiala_service_delete($shipping_service, $skip_reset) {
   // perform custom operations reacting to the deletion of an existing
   // shipping service
+}
+
+
+// -----------------------------------------------------------------------
+// Kiala Line Item Point CRUD Hooks
+
+/**
+ * Line Item Point Insert
+ *
+ * @param $record
+ *   The line item point object:
+ *    - line_item_id
+ *    - point_id
+ */
+function hook_commerce_kiala_line_item_point_insert($record) {
+  // perform operations reacting to the creation of a new line item point
+}
+
+/**
+ * Line Item Point Update
+ *
+ * @param $record
+ *   The line item point object:
+ *    - line_item_id
+ *    - point_id
+  * @param $record_original
+ *   The original unchanged line item point.
+ */
+function hook_commerce_kiala_line_item_point_update($record, $record_original) {
+  // perform operations reacting to the update of an existing line item point
+}
+
+/**
+ * Line Item Point Delete
+ *
+ * This hook is called before the record is removed from the database table.
+ *
+ * @param $record
+ *   The line item point object:
+ *    - line_item_id
+ *    - point_id
+ */
+function hook_commerce_kiala_line_item_point_delete($record) {
+  // perform operations reacting to the deletion of a line item point
 }

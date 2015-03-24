@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Implements Payleap payment services for use in Drupal Commerce.
+ * Implements PayLeap payment services for use in Drupal Commerce.
  */
 
-// Payleap transaction mode definitions:
+// PayLeap transaction mode definitions:
 define('PAYLEAP_TXN_MODE_PRODUCTION', 'production');
 define('PAYLEAP_TXN_MODE_TEST', 'test');
-// Payleap request type definitions:
+// PayLeap request type definitions:
 define('PAYLEAP_TXN_TYPE_DIRECT_CAPTURE', 'direct_capture');
 define('PAYLEAP_TXN_TYPE_DELAYED_CAPTURE', 'delayed_capture');
 define('PAYLEAP_TXN_TYPE_ADDRECURRINGCREDITCARD', 'add_recurring_credit_card');
@@ -19,7 +19,7 @@ define('PAYLEAP_TXN_TYPE_MANAGECONTRACT', 'manage_contract');
 define('PAYLEAP_TXN_TYPE_VOID', 'void');
 define('PAYLEAP_TXN_TYPE_FORCE', 'force');
 define('COMMERCE_PAYMENT_STATUS_CANCELED', 'canceled');
-// Tracking code provided by Payleap for Drupal Commerce.
+// Tracking code provided by PayLeap for Drupal Commerce.
 define('PAYLEAP_COMMERCE_PARTNER_ID', 'commerceguys298');
 
 /**
@@ -69,11 +69,11 @@ function commerce_payleap_menu() {
 }
 
 function commerce_payleap_capture_access($order, $transaction) {
-  // Return FALSE if the transaction isn't for Payleap or isn't awaiting capture.
+  // Return FALSE if the transaction isn't for PayLeap or isn't awaiting capture.
   if ($transaction->payment_method != PAYLEAP_TXN_TYPE_DELAYED_CAPTURE || $transaction->remote_status == 'Fail' || $transaction->status != COMMERCE_PAYMENT_STATUS_PENDING) {
     return FALSE;
   }
-  // TODO: Check if this is relevant to payleap.
+  // TODO: Check if this is relevant to PayLeap.
   // Return FALSE if it is more than 30 days past the original authorization.
   if (time() - $transaction->created > 86400 * 30) {
     return FALSE;
@@ -91,18 +91,18 @@ function commerce_payleap_commerce_payment_method_info() {
 
   $payment_methods['payleap_direct'] = array(
     'base' => 'commerce_payleap_direct',
-    'title' => t('Payleap direct processing'),
-    'short_title' => t('Payleap direct processing'),
+    'title' => t('PayLeap direct processing'),
+    'short_title' => t('PayLeap direct processing'),
     'display_title' => t('Credit card'),
-    'description' => t('Integrates Payleap direct processing payment, direct or delayed capture '),
+    'description' => t('Integrates PayLeap direct processing payment, direct or delayed capture '),
   );
 
   $payment_methods['payleap_cof'] = array(
     'base' => 'commerce_payleap_cof',
-    'title' => t('Payleap - Card On File'),
-    'short_title' => t('Payleap Cardonfile'),
+    'title' => t('PayLeap - Card On File'),
+    'short_title' => t('PayLeap Cardonfile'),
     'display_title' => t('Card on File'),
-    'description' => t('Payleap - Can be used for regular transaction with option to keep the credit card saved for re-use - requires the Card on File module '),
+    'description' => t('PayLeap - Can be used for regular transaction with option to keep the credit card saved for re-use - requires the Card on File module '),
     'cardonfile' => array(
       'update callback' => 'commerce_payleap_cim_cardonfile_update_delete',
       'delete callback' => 'commerce_payleap_cim_cardonfile_update_delete',
@@ -113,7 +113,7 @@ function commerce_payleap_commerce_payment_method_info() {
 }
 
 /**
- * Returns the default settings for the Payleap AIM payment method.
+ * Returns the default settings for the PayLeap AIM payment method.
  */
 function commerce_payleap_default_settings() {
   return array(
@@ -444,7 +444,7 @@ function commerce_payleap_direct_submit_form_submit($payment_method, $pane_form,
  * Proceed to the payment and record a transaction.
  */
 function commerce_payleap_transaction_process($payment_method, $info, $order, $charge) {
-  // Submit the request to Payleap.
+  // Submit the request to PayLeap.
   $response = commerce_payleap_request($payment_method, $info);
 
   // Prepare a transaction object to log the API response.
@@ -568,13 +568,13 @@ function commerce_payleap_get_billing_info($order) {
 }
 
 /**
- * Returns the URL to the Payleap server determined by transaction mode.
+ * Returns the URL to the PayLeap server determined by transaction mode.
  *
  * @param $txn_mode
  *   The transaction mode that relates to the production or test server.
  *
  * @return
- *   The URL to use to submit requests to the Payleap server.
+ *   The URL to use to submit requests to the PayLeap server.
  */
 function commerce_payleap_server_url($txn_mode, $txn_payleap_type) {
 
@@ -614,7 +614,7 @@ function commerce_payleap_server_url($txn_mode, $txn_payleap_type) {
 }
 
 /**
- * Submits a request to Payleap.
+ * Submits a request to PayLeap.
  *
  * @param $payment_method
  *   The payment method instance array associated with this API request.
@@ -661,7 +661,7 @@ function commerce_payleap_request($payment_method, $info = array()) {
       $log_nvp['CVNum'] = str_repeat('X', strlen($log_nvp['CVNum']));
     }
 
-    watchdog('commerce_payleap', 'Payleap request to @url: !param', array('@url' => $url, '!param' => '<pre>' . check_plain(print_r($log_nvp, TRUE)) . '</pre>'), WATCHDOG_DEBUG);
+    watchdog('commerce_payleap', 'PayLeap request to @url: !param', array('@url' => $url, '!param' => '<pre>' . check_plain(print_r($log_nvp, TRUE)) . '</pre>'), WATCHDOG_DEBUG);
   }
 
   // Prepare the name-value pair array to be sent as a string.
@@ -678,7 +678,7 @@ function commerce_payleap_request($payment_method, $info = array()) {
   curl_setopt($ch, CURLOPT_POST, 1);
   curl_setopt($ch, CURLOPT_POSTFIELDS, implode('&', $pairs));
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
   curl_setopt($ch, CURLOPT_NOPROGRESS, 1);
   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
 
@@ -775,7 +775,7 @@ function commerce_payleap_transaction_request($transaction, $payment_method, $am
   // If we didn't get an approval response code...
    if (!$response['status']) {
     // Display an error message but leave the transaction pending.
-    drupal_set_message(t('Payleap request failed'), 'error');
+    drupal_set_message(t('PayLeap request failed'), 'error');
     drupal_set_message(check_plain($response['msg']), 'error');
     $result =  FALSE;
    }
@@ -809,7 +809,7 @@ function commerce_payleap_transaction_request($transaction, $payment_method, $am
 }
 
 /**
- * Submits a ManageCreditCardInfo request Payleap.
+ * Submits a ManageCreditCardInfo request PayLeap.
  *
  * This function will perform a Add/Update/Delete of a credit card profile.
  *
@@ -911,7 +911,7 @@ function commerce_payleap_form_commerce_cardonfile_update_form_alter(&$form, &$f
 }
 
 /**
- * Submits a ManageCustomer request Payleap.
+ * Submits a ManageCustomer request PayLeap.
  *
  * This function will perform a Add/Update/Delete of a CIM Customer Profile
  *
@@ -1079,7 +1079,7 @@ function commerce_payleap_cvv_response($code) {
  * Implements hook_commerce_kickstart_service_provider().
  */
 function commerce_payleap_commerce_kickstart_service_provider() {
-  $description = t('This module is about integrating the Payleap payment gateway with Drupal Commerce and the Commerce Card-on-File framework'). '<br /><br />';
+  $description = t('This module is about integrating the PayLeap payment gateway with Drupal Commerce and the Commerce Card-on-File framework'). '<br /><br />';
   $description .= '<b>' . t('Your own virtual POS') . '</b><br />';
   $description .= t('Accept card payments face-to-face, over the phone, through the mail, or recurring, with a PayLeap virtual point-of-sale terminal to meet your business needs.') . '<br /><br />';
   $description .= '<b>' . t('eCommerce Solutions') . '</b><br />';
@@ -1087,15 +1087,15 @@ function commerce_payleap_commerce_kickstart_service_provider() {
   $description .= '<b>' . t('Secure Technology') . '</b><br />';
   $description .= t('Adaptive solutions aimed at keeping your data safe, we provide secure payment forms utilizing LeapLock™ technology and customer data storage with tokenization.');
 
-  $installation = t('1. Go to admin -> modules and enable commerce payleap module.') . '<br />';
-  $installation .= t('2. Under site configuration -> Workflow you can see 2 payleap rules. Choose your method and define as needed');
+  $installation = t('1. Go to admin -> modules and enable commerce PayLeap module.') . '<br />';
+  $installation .= t('2. Under site configuration -> Workflow you can see 2 PayLeap rules. Choose your method and define as needed');
 
   return array(
     'commerce_payleap' => array(
       'logo_path' => 'http://www.payleap.com/images/PayLeapRevisedLogo.png',
-      'title' => t('Commerce payleap'),
+      'title' => t('Commerce PayLeap'),
       'category' => t('Payment providers'),
-      'teaser' => t('This module is about integrating the Payleap payment gateway with Drupal Commerce and the Commerce Card-on-File framework.'),
+      'teaser' => t('This module is about integrating the PayLeap payment gateway with Drupal Commerce and the Commerce Card-on-File framework.'),
       'description' => $description,
       'requirements' => t('PayLeap API login ID and PayLeap API transaction key'),
       'link' => 'http://www.payleap.com/',

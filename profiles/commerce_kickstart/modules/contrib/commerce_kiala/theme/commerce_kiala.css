@@ -2,6 +2,7 @@
 /** Checkout service details selection form **/
 .commerce-kiala-service-details-form {
   clear:left;
+  padding-top: 1px;
 }
 
 html.js .commerce-kiala-service-details-form .form-type-radio {
@@ -27,13 +28,13 @@ html.js .commerce-kiala-service-details-form .form-type-radio label.option .comm
 }
 
 html.js .commerce-kiala-service-details-form .form-type-radio-checked label.option .commerce-kiala-point-details {
-  background: #D5E9F2;
-  border: 1px solid #70b4d9;
+  background: #f4f4f4;
+  border: 1px solid #ccc;
 }
 html.js .commerce-kiala-service-details-form .form-type-radio label.option:hover .commerce-kiala-point-details {
   cursor: pointer;
-  background: #c4deee;
-  border: 1px solid #70b4d9;
+  background: #ececec;
+  border: 1px solid #ccc;
 }
 
 span.button {
@@ -57,10 +58,30 @@ span.button:hover {
   background: #cccccc;
 }
 
+/** default point button **/
 .commerce-kiala-service-details-form .form-type-radio-checked span.button,
 .commerce-kiala-service-details-form .form-type-radio-checked span.button:hover {
   background: #eeeeee;
-  opacity: .5;
+}
+.commerce-kiala-service-details-form .form-type-radio span.button-selected {
+  display: none;
+}
+.commerce-kiala-service-details-form .form-type-radio span.button-selected,
+.commerce-kiala-service-details-form .form-type-radio span.button-selected:hover {
+  color: #fff;
+  background-color: #D0003A;
+  border: 1px solid #ea4f79;
+  border-bottom: 1px solid #960126;
+  border-left-color: #b20130;
+  border-right-color: #b20130;
+}
+
+/** selected point button **/
+.commerce-kiala-service-details-form .form-type-radio-checked span.button {
+  display: none;
+}
+.commerce-kiala-service-details-form .form-type-radio-checked span.button-selected {
+  display: block;
 }
 
 .kiala-point-picture {
@@ -99,7 +120,11 @@ span.button:hover {
 }
 
 .commerce-kiala-service-info-label {
+  background: transparent url("kiala-logo.png") no-repeat 0 0;
+  display: inline-block;
   font-weight: 700;
+  min-height: 20px;
+  padding: 10px 0 10px 50px;
 }
 
 .commerce-kiala-service-info {

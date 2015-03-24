@@ -292,9 +292,10 @@ function commerce_backoffice_product_variations_view($node) {
  */
 function commerce_backoffice_product_quick_edit_form($form, &$form_state, $product) {
   $form_state['product'] = $product;
-
   $price_array = $product->commerce_price[LANGUAGE_NONE][0];
-  $price = commerce_currency_amount_to_decimal($price_array['amount'], $price_array['currency_code']);
+  $currency = commerce_currency_load($price_array['currency_code']);
+  $amount = commerce_currency_amount_to_decimal($price_array['amount'], $price_array['currency_code']);
+  $price = number_format(commerce_currency_round(abs($amount), $currency), $currency['decimals'], $currency['decimal_separator'], $currency['thousands_separator']);
 
   $wrapper = drupal_html_id('commerce-backoffice-product-quick-edit-form');
   $form['#prefix'] = '<div class="container-inline" id="' . $wrapper . '">';
@@ -304,7 +305,7 @@ function commerce_backoffice_product_quick_edit_form($form, &$form_state, $produ
     '#type' => 'textfield',
     '#title' => t('Price'),
     '#title_display' => 'invisible',
-    '#default_value' => sprintf("%.2f", $price),
+    '#default_value' => $price,
     '#size' => 5,
   );
   $form['status'] = array(

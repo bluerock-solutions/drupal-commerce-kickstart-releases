@@ -1,5 +1,5 @@
-name = Commerce Payleap
-description = Implements Payleap payment services for use with Drupal Commerce.
+name = Commerce PayLeap
+description = Implements PayLeap payment services for use with Drupal Commerce.
 package = Commerce (contrib)
 dependencies[] = commerce
 dependencies[] = commerce_ui
@@ -16,9 +16,9 @@ files[] = includes/commerce_payleap.admin.inc
 ; Simple tests
 files[] = tests/commerce_payleap.test
 
-; Information added by drupal.org packaging script on 2013-01-17
-version = "7.x-1.0-rc1"
+; Information added by drupal.org packaging script on 2013-03-07
+version = "7.x-1.0"
 core = "7.x"
 project = "commerce_payleap"
-datestamp = "1358423460"
+datestamp = "1362669359"
 

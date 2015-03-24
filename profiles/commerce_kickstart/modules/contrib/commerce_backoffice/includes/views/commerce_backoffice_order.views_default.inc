@@ -249,6 +249,11 @@ function commerce_backoffice_order_views_default_views() {
   $handler->display->display_options['fields']['operations_dropbutton']['field'] = 'operations_dropbutton';
   $handler->display->display_options['fields']['operations_dropbutton']['label'] = 'Operations';
   $handler->display->display_options['fields']['operations_dropbutton']['add_destination'] = 1;
+  /* Sort criterion: Commerce Order: Updated date */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'commerce_order';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
   /* Contextual filter: Commerce Order: Order ID */
   $handler->display->display_options['arguments']['order_id']['id'] = 'order_id';
   $handler->display->display_options['arguments']['order_id']['table'] = 'commerce_order';
@@ -309,6 +314,35 @@ function commerce_backoffice_order_views_default_views() {
   $handler->display->display_options['tab_options']['description'] = 'Manage orders in the store.';
   $handler->display->display_options['tab_options']['weight'] = '';
   $handler->display->display_options['tab_options']['name'] = 'management';
+  $translatables['commerce_backoffice_orders'] = array(
+    t('Master'),
+    t('Orders'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Customer profile'),
+    t('Order owner'),
+    t('ID'),
+    t('Created'),
+    t('Name/Email'),
+    t('Email'),
+    t('Total'),
+    t('Status'),
+    t('Operations'),
+    t('All'),
+    t('Filter by'),
+    t('Admin page'),
+  );
   $views[$view->name] = $view;
 
   $view = new view;

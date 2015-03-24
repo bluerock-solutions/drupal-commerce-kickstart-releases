@@ -11,10 +11,17 @@
  */
 function commerce_kiala_ps_commerce_kiala_settings_info() {
   return array(
-/*
+    'packship_platform_originator' => array(
+      'group' => 'packship',
+      'default' => 'CG_1.0',
+    ),
+    'packship_plugin_number_prefix' => array(
+      'group' => 'packship',
+      'default' => 'CG_1.0_',
+    ),
     'packship_type' => array(
       'group' => 'packship',
-      'default' => 'ws',
+      'default' => 'desktop',
     ),
     'packship_ws_sender_id' => array(
       'group' => 'packship',
@@ -29,13 +36,16 @@ function commerce_kiala_ps_commerce_kiala_settings_info() {
     ),
     'packship_ws_url' => array(
       'group' => 'packship',
-      'default' => 'https://packandship-ws.kiala.com/psws/order',
+      'default' => 'http://packandship-ws.kiala.com/psws/order?wsdl',
+    ),
+    'packship_ws_max_weight' => array(
+      'group' => 'packship',
+      'default' => '',
     ),
     'packship_ws_params' => array(
       'group' => 'packship',
       'default' => array(
       ),
     ),
-*/
   );
 }

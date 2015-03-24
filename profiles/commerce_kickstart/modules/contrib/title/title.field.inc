@@ -73,7 +73,7 @@ function title_field_formatter_settings_summary($field, $instance, $view_mode) {
   $settings = $instance['display'][$view_mode]['settings'];
   $summary = array();
 
-  $tag = !empty($settings['title_style']) && $settings['title_style'] != '_none' ? $settings['title_style'] : t('- None -');
+  $tag = isset($settings['title_style']) && $settings['title_style'] != '' && $settings['title_style'] != '_none' ? $settings['title_style'] : t('- None -');
   $summary[] = t('Title wrap tag: @tag', array('@tag' => $tag));
 
   $link_types = array(
@@ -85,7 +85,7 @@ function title_field_formatter_settings_summary($field, $instance, $view_mode) {
   }
 
   // Display this setting only if wrapper has a class.
-  if (!empty($settings['title_class']) && $settings['title_class'] != '_none') {
+  if (isset($settings['title_class']) && $settings['title_class'] != '_none' && $settings['title_class'] != '') {
     $summary[] = t('Wrap tag classes: @classes', array('@classes' => $settings['title_class']));
   }
 
@@ -104,18 +104,21 @@ function title_field_formatter_view($entity_type, $entity, $field, $instance, $l
     $output = l($output, $uri['path'], array('html' => TRUE));
   }
 
-  $wrap_tag = !empty($settings['title_style']) ? $settings['title_style'] : '_none';
+  $wrap_tag = empty($settings['title_style']) ? '_none' : $settings['title_style'];
 
   if ($wrap_tag != '_none') {
-    $output = theme('html_tag', array(
+    $element = array(
       'element' => array(
         '#tag' => $wrap_tag,
-        '#attributes' => array(
-          'class' => $settings['title_class'],
-        ),
         '#value' => $output,
       ),
-    ));
+    );
+
+    if (!empty($settings['title_class'])) {
+      $element['#attributes'] = array('class' => $settings['title_class']);
+    }
+
+    $output = theme('html_tag', $element);
   }
 
   $element = array(

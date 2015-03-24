@@ -118,14 +118,21 @@ function jirafe_page_alter(&$page) {
   else if ($node = menu_get_object('node', 1)) {
     $product_node = commerce_product_reference_node_types();
     if (array_key_exists($node->type, commerce_product_reference_node_types())) {
-      $product_references = field_read_fields(array('type' => 'commerce_product_reference'));
-      foreach ($product_references as $product_reference) {
-        if (!empty($node->{$product_reference['field_name']})) {
-          $product = commerce_product_load($node->{$product_reference['field_name']}[LANGUAGE_NONE][0]['product_id']);
+      foreach (commerce_info_fields('commerce_product_reference', 'node') as $name => $field) {
+        if (!field_info_instance('node', $name, $node->type)) {
+          continue;
         }
+        $node_wrapper = entity_metadata_wrapper('node', $node);
+        if ($field['cardinality'] == 1) {
+          $product = $node_wrapper->$name->value();
+        }
+        else {
+          $product = $node_wrapper->$name->get(0)->value();
+        }
+        break;
       }
       // Don't try to look for the product data if there is no product attached.
-      if ($product) {
+      if (isset($product)) {
         $price = entity_metadata_wrapper('commerce_product', $product)->commerce_price->value();
         $ammount = commerce_currency_amount_to_decimal($price['amount'], '');
         $currency = commerce_currency_load();
@@ -225,6 +232,7 @@ function jirafe_commerce_checkout_complete($order) {
  * Set Jirafe as a commerce-kickstart service provider.
  */
 function jirafe_commerce_kickstart_service_provider() {
+  global $base_url;
   return array(
     'jirafe' => array(
       'logo_path' => 'https://en.jirafe.com/bundles/jirafewebsite/img/features/grphcPgHed.png',
@@ -232,10 +240,10 @@ function jirafe_commerce_kickstart_service_provider() {
       'category' => t('Analytics'),
       'teaser' => t('Jirafe analytics dashboard.'),
       'description' => t('Grow your revenues by making smarter marketing & merchandising choices.'),
-      'requirements' => t('Requires application token and ID to be set.'),
+      'requirements' => t('Requires application ID and token to be set.'),
       'requirements_callback' => 'jirafe_commerce_kickstart_service_provider_requirements',
       'link' => 'http://jirafe.com',
-      'installation_proccess' => t('1. Create your Jirafe account at the Commerce Guys !marketplace.<br />2. Fill in your application ID and token !configuration_link.', array('!marketplace' => l('Marketplace', url('https://marketplace.commerceguys.com/service/jirafe')), '!configuration_link' => l('here', 'admin/commerce/config/jirafe'))),
+      'installation_proccess' => t('1. Create your Jirafe account at the Commerce Guys !marketplace.<br />2. Fill in your application ID and token !configuration_link.', array('!marketplace' => l('Marketplace', url('https://marketplace.commerceguys.com/service/jirafe', array('query' => array('source' => $base_url)))), '!configuration_link' => l('here', 'admin/commerce/config/jirafe'))),
     ),
   );
 }

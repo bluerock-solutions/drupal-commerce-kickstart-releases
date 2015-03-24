@@ -14,7 +14,7 @@ function commerce_kiala_commerce_kiala_settings_info() {
 
   return array(
     'dspid' => array(
-      'default' => 'DEMO_DSP',
+      'default' => '',
     ),
     'shipping_countries_enabled' => array(
       'default' => array_keys($countries),
@@ -240,12 +240,8 @@ function commerce_kiala_method_rate_access($shipping_service, $order) {
     return TRUE;
   }
 
-  // get method settings
-  $method_settings = commerce_kiala_settings();
-
   // DENY if address is restricted by the Kiala settings
-  if (empty($method_settings['shipping_countries_enabled']) ||
-      !in_array($address['country'], $method_settings['shipping_countries_enabled'])) {
+  if (!commerce_kiala_can_ship_to_country($address['country']) ) {
     return FALSE;
   }
 
@@ -295,10 +291,8 @@ function commerce_kiala_service_details_form($pane_form, $pane_values, $checkout
   $kp_options = array();
 
   // Add the order history option
-  // - limits to past 10 orders
   if (!empty($order->uid)) {
-    $order_history_limit = 10;
-    $owner_last_point_id = commerce_kiala_recipient_address_last_point($order_wrapper->owner->value(), $recipient_address, $order_history_limit);
+    $owner_last_point_id = commerce_kiala_user_last_point($order_wrapper->owner->value());
     if (!empty($owner_last_point_id)) {
       $kp_options[$owner_last_point_id] = t('Previously selected Kiala Point');
     }
@@ -321,11 +315,7 @@ function commerce_kiala_service_details_form($pane_form, $pane_values, $checkout
   }
 
   // ensure default
-  if (empty($kp_default) && !empty($kp_options)) {
-    // if no default, set to first in the list
-    $kp_default = key($kp_options);
-  }
-  elseif (!isset($kp_options[$kp_default])) {
+  if (!isset($kp_options[$kp_default])) {
     // if default and is not an option, then add it
     $kp_options[$kp_default] = $kp_default;
   }
@@ -354,6 +344,7 @@ function commerce_kiala_service_details_form($pane_form, $pane_values, $checkout
     ));
 
     $kp_options[$point_id] .= '<span class="button">' . t('Select') . '</span>';
+    $kp_options[$point_id] .= '<span class="button button-selected">' . t('Selected') . '</span>';
   }
 
 

@@ -115,11 +115,6 @@ input.form-radio + label::before {
   background: transparent url("../images/breadcrumb-rtl.png") no-repeat 0 0;
 }
 
-#commerce-kickstart-inline-help #edit-commerce-kickstart-inline-help-close-button {
-  left: 0;
-  right: auto;
-}
-
 .form-managed-file input.form-file {
   margin-left: 20px;
   margin-right: 0;
@@ -149,15 +144,6 @@ table td.views-field-edit-node a {
   float: right;
   margin-left: 10px;
   margin-right: 0;
-}
-
-#commerce-kickstart-inline-close-help-form-ajax .ajax-progress {
-  left: 100px;
-  right: auto;
-}
-
-#commerce-kickstart-inline-help-form-ajax #edit-commerce-kickstart-inline-help-button {
-  float: left;
 }
 
 .item-list ul.pager li {

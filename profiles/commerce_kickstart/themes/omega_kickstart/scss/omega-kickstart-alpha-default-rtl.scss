@@ -34,14 +34,17 @@
   .second-menu ul {
     float: right !important;
     li {
-
+      margin-right: 0 !important;
+      margin-left: -4px !important;
       &.first a {
         border-right: $mainmenuitemborder !important;
-        border-left: 0 !important;
+        border-left: none !important;
       }
       &.last a {
         border-left: $mainmenuitemborder !important;
-        border-right: 0 !important;
+        border-right: none !important;
+        margin-right: -2px !important;
+        margin-left: 0 !important;
       }
     }
   }

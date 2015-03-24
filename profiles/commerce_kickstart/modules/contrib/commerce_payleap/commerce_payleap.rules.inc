@@ -6,7 +6,7 @@ function commerce_payleap_rules_action_info() {
   $items = array();
   $items['commerce_payleap_capture_pending'] = array(
     'label' => t('Force capture on authorisation transactions.'),
-    'group' => t('Commerce Payleap'),
+    'group' => t('Commerce PayLeap'),
     'parameter' => array(
       'order' => array(
         'type' => 'commerce_order',
@@ -26,7 +26,7 @@ function commerce_payleap_rules_action_info() {
 
   $items['commerce_payleap_cancel_transaction'] = array(
     'label' => t('Cancel/Refund transaction'),
-    'group' => t('Commerce Payleap'),
+    'group' => t('Commerce PayLeap'),
     'parameter' => array(
       'order' => array(
         'type' => 'commerce_order',
@@ -47,7 +47,7 @@ function commerce_payleap_rules_action_info() {
 }
 
 /**
- * Payleap Rules integration access callback.
+ * PayLeap Rules integration access callback.
  */
 function commerce_payleap_rules_integration_access($type, $name) {
   // Grant everyone access to conditions.

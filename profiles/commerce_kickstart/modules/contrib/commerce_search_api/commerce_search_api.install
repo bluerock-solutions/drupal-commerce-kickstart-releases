@@ -45,10 +45,16 @@ function commerce_search_api_install() {
 
 /**
  * Implements hook_uninstall().
+ *
+ * Remove the created server if it exists and if no index is using it.
  */
 function commerce_search_api_uninstall() {
-  drupal_load('module', 'search_api');
-  if ($server = search_api_server_load('frontend')) {
-    $server->delete();
+  if (module_exists('search_api')) {
+    if ($server = search_api_server_load('frontend')) {
+      $indexes = search_api_index_load_multiple(FALSE, array('server' => 'frontend'));
+      if (empty($indexes)) {
+        $server->delete();
+      }
+    }
   }
 }
