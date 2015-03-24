@@ -109,15 +109,14 @@ dependencies[] = commerce_kickstart_order
 dependencies[] = commerce_kickstart_payment
 dependencies[] = commerce_kickstart_comment
 dependencies[] = commerce_kickstart_migrate
-dependencies[] = commerce_kickstart_reset
 dependencies[] = commerce_kickstart_service_provider
 
 ; System Requirements.
 php_memory_limit = 128M
 
-; Information added by drupal.org packaging script on 2013-01-17
-version = "7.x-2.1"
+; Information added by drupal.org packaging script on 2013-01-26
+version = "7.x-2.2"
 core = "7.x"
 project = "commerce_kickstart"
-datestamp = "1358444178"
+datestamp = "1359159361"
 
