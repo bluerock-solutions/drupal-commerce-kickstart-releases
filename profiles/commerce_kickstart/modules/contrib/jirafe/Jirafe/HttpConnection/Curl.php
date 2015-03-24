@@ -66,7 +66,7 @@ class Jirafe_HttpConnection_Curl extends Jirafe_HttpConnection_Connection
             CURLOPT_URL             => $this->base . ltrim($path, '/'),
             CURLOPT_PORT            => $this->port,
             CURLOPT_USERAGENT       => $this->useragent,
-            CURLOPT_FOLLOWLOCATION  => true,
+            CURLOPT_FOLLOWLOCATION  => false,
             CURLOPT_RETURNTRANSFER  => true,
             CURLOPT_TIMEOUT         => $this->timeout,
             CURLOPT_HEADER          => 0
