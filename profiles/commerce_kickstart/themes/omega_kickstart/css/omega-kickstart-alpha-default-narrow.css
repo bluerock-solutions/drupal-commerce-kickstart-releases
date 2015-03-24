@@ -31,19 +31,6 @@
   #block-views-demo-content-slideshow-block-1 .bx-wrapper,
   #block-views-demo-content-slideshow-block-1 .bx-wrapper .bx-window {
     padding-bottom: 0; }
-  #block-views-demo-content-slideshow-block-1 .bx-wrapper ul.event-slider {
-    /*li {
-      min-height: 168px;
-      height: 357px;
-      max-height: 480px;
-      margin: 0;
-      min-width: 330px;
-      width: 700px;
-      max-width: 940px;
-    }*/ }
-    #block-views-demo-content-slideshow-block-1 .bx-wrapper ul.event-slider li {
-      height: 357px;
-      width: 700px; }
 
 /**************************************************
 * --

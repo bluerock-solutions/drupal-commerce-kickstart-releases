@@ -5,7 +5,6 @@
   Drupal.behaviors.activeBarClass = {
     attach: function(context, settings) {            
       var isDemo = $('div#activebar-container').size();
-      //console.log('isDemo: ' + isDemo);
       if(isDemo) {
         $('body').addClass('activebar-container');
       }
@@ -25,20 +24,16 @@
   
   Drupal.behaviors.betterEventSlider = {
     attach: function(context, settings) {            
-      
+      var bxclasses = '.bx-wrapper, bx-wrapper .bx-viewport';
       $(window).load(function(){
         var liheight = $('ul.event-slider li:first-child').height();
-        $('.bx-wrapper, .bx-wrapper .bx-window').css('height', liheight);
+        $(bxclasses).css('height', liheight);
       });
-      
-      //console.log('woot!');
       
       $(window).resize(function(){
         var liheight = $('ul.event-slider li:first-child').height();
-        $('.bx-wrapper, .bx-wrapper .bx-window').css('height', liheight);
+        $(bxclasses).css('height', liheight);
       });
-      
-      //$('ul.event-slider li').addClass('clearfix');
     }
   };
 

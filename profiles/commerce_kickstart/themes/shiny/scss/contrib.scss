@@ -797,7 +797,7 @@ html.js .views-exposed-form .form-item input.throbbing {
       }
     }
   }
-  #taxonomy-manager-tree {
+  .form-type-taxonomy-manager-tree {
     input.form-checkbox,
     input.form-radio {
       -webkit-appearance: none;
@@ -819,6 +819,15 @@ html.js .views-exposed-form .form-item input.throbbing {
     }
     .form-disabled input.form-checkbox {
       opacity: .4;
+    }
+  }
+}
+/* Form Fix for Firefox */
+@-moz-document url-prefix() {
+  .form-type-taxonomy-manager-tree {
+    input.form-checkbox,
+    input.form-radio {
+      opacity: 1;
     }
   }
 }

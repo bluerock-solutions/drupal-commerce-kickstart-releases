@@ -1,5 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
-@import url(http://fonts.googleapis.com/css?family=Gentium+Basic:400,700);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
+@import url(//fonts.googleapis.com/css?family=Gentium+Basic:400,700);
 /* Include Default Variables & Mixins */
 /* End Variables & Mixins */
 /**************************************************
@@ -163,22 +163,28 @@
 * Blocks
 */
 #block-views-demo-content-slideshow-block-1 {
-  /* HP blocks: Slideshow */ }
-  #block-views-demo-content-slideshow-block-1 .bx-wrapper,
-  #block-views-demo-content-slideshow-block-1 .bx-wrapper .bx-window {
-    /*max-height: 168px;
-    width: 100% !important;*/ }
-  #block-views-demo-content-slideshow-block-1 .bx-wrapper ul.event-slider li {
-    height: 168px;
-    margin: 0 auto;
-    width: 344px;
-      /*img {
-
-        height: auto;
-        width: 100%;
-      }*/ }
-    #block-views-demo-content-slideshow-block-1 .bx-wrapper ul.event-slider li img {
-      overflow: hidden; }
+  /* HP blocks: Slideshow */
+  /**
+   * For modern browsers
+   * 1. The space content is one way to avoid an Opera bug when the
+   *    contenteditable attribute is included anywhere else in the document.
+   *    Otherwise it causes space to appear at the top and bottom of elements
+   *    that are clearfixed.
+   * 2. The use of `table` rather than `block` is only necessary if using
+   *    `:before` to contain the top-margins of child elements.
+   */
+  /**
+   * For IE 6/7 only
+   * Include this rule to trigger hasLayout and contain floats.
+   */
+  *zoom: 1; }
+  #block-views-demo-content-slideshow-block-1:before, #block-views-demo-content-slideshow-block-1.cf:after {
+    content: " ";
+    /* 1 */
+    display: table;
+    /* 2 */ }
+  #block-views-demo-content-slideshow-block-1:after {
+    clear: both; }
 
 /**********************************************
 * 3.3. Zone postscript
@@ -410,7 +416,7 @@ div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-mess
   .page-user form#user-login #user_login_form,
   .page-checkout form#user-login #user_login_form {
     border: 0;
-    border-right: 1px solid #444;
+    border-right: 1px solid #444444;
     padding-right: 20px;
     padding-bottom: 0; }
   .page-user form#user-login .create-account,

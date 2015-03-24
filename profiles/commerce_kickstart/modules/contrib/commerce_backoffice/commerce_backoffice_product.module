@@ -92,6 +92,17 @@ function commerce_backoffice_product_menu() {
 }
 
 /**
+ * Implements hook_admin_paths().
+ */
+function commerce_backoffice_product_admin_paths() {
+  // The variations view should use the admin theme.
+  $paths = array(
+    'commerce_backoffice/variations/*' => TRUE,
+  );
+  return $paths;
+}
+
+/**
  * Implements hook_menu_alter().
  */
 function commerce_backoffice_product_menu_alter(&$items) {

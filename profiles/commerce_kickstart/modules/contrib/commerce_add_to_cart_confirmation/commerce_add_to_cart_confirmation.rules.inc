@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Rules integration for the Commerce add to cart confirmation module.
+ */
+
+/**
  * Implements hook_rules_action_info().
  */
 function commerce_add_to_cart_confirmation_rules_action_info() {
@@ -17,7 +22,7 @@ function commerce_add_to_cart_confirmation_rules_action_info() {
       'callbacks' => array(
         'execute' => 'commerce_add_to_cart_confirmation_rules_add_to_cart_message',
       ),
-    )
+    ),
   );
 }
 

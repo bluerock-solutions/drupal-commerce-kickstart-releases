@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,300,600,800);
 /* Import Font Families */
 /* Base Admin Theme Styles */
 * {
@@ -83,7 +83,7 @@ body.in-maintenance #sidebar-first {
 }
 body.in-maintenance fieldset .fieldset-wrapper,
 body.in-maintenance fieldset.collapsible {
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding: 15px;
 }
 
@@ -330,7 +330,7 @@ select.form-select {
   -moz-appearance: none;
   appearance: none;
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   -moz-border-radius: 3px 3px 3px 3px;
   -webkit-border-radius: 3px 3px 3px 3px;
   border-radius: 3px 3px 3px 3px;
@@ -347,7 +347,7 @@ select.form-select:focus {
 }
 
 /* Form Fixes for Webkit Browsers. */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
   select.form-select {
     padding: 5px 35px 5px 5px;
     /* LTR */
@@ -394,7 +394,8 @@ select.form-select:focus {
 
 /* Form Fix for Opera */
 noindex:-o-prefocus input.form-checkbox,
-noindex:-o-prefocus input.form-radio, form table input.form-checkbox, form table input.form-radio {
+noindex:-o-prefocus input.form-radio, form table input.form-checkbox,
+form table input.form-radio {
   opacity: 1;
 }
 
@@ -629,23 +630,24 @@ h1#overlay-title {
   padding-bottom: .9em;
 }
 
-.footer-messages {
+#footer {
   border-top: 1px solid #efefef;
   clear: both;
   font: normal 13px/13px "Open Sans", Arial, sans-serif;
   margin: 0 40px;
 }
 
-body.in-maintenance .footer-messages {
+body.in-maintenance #footer {
   border: 0;
   margin: 0 auto;
   width: 960px;
 }
 
-#overlay #overlay-content .footer-messages {
+#overlay #overlay-content #footer {
   border-top: 0;
   color: #fff;
-  margin: 0;
+  margin: 0 0 0 -8px;
+  padding: 0 8px;
   position: absolute;
   top: 100%;
   width: 100%;
@@ -657,7 +659,9 @@ body.in-maintenance .footer-messages {
   padding: 20px 0 40px;
 }
 
-#powered {
+#powered_by_drupal_commerce {
+  float: left;
+  /* LTR */
   padding-top: 20px;
 }
 
@@ -751,9 +755,9 @@ body.in-maintenance #credit .logo a {
 #commerce-kickstart-inline-help .advanced-help-topic {
   background: #fef2c4;
   border: 1px solid #efb120;
-  -moz-box-shadow: inset 0 0 10px #fff;
-  -webkit-box-shadow: inset 0 0 10px #fff;
-  box-shadow: inset 0 0 10px #fff;
+  -moz-box-shadow: inset 0 0 10px white;
+  -webkit-box-shadow: inset 0 0 10px white;
+  box-shadow: inset 0 0 10px white;
   margin-bottom: 30px;
   padding: 15px;
 }
@@ -833,10 +837,11 @@ input.form-submit:focus,
 a.button:focus {
   color: #fff;
 }
-input.form-submit:hover, input.form-submit:focus, input.form-submit:active,
+input.form-submit:hover, input.form-submit:focus, input.form-submit:active, input.form-submit:disabled,
 a.button:hover,
 a.button:focus,
-a.button:active {
+a.button:active,
+a.button:disabled {
   background: #eeeeee;
   color: #5A5A5A;
   text-shadow: 0 -1px 1px white;
@@ -933,22 +938,27 @@ html.js .view-commerce-message-messages .view-footer fieldset.collapsible .field
 input.ief-entity-submit:focus {
   color: #fff;
 }
-.form-actions #edit-submit:hover, .form-actions #edit-submit:focus, .form-actions #edit-submit:active,
+.form-actions #edit-submit:hover, .form-actions #edit-submit:focus, .form-actions #edit-submit:active, .form-actions #edit-submit:disabled,
 .form-actions #edit-save:hover,
 .form-actions #edit-save:focus,
 .form-actions #edit-save:active,
+.form-actions #edit-save:disabled,
 ul.action-links li:hover,
 ul.action-links li:focus,
 ul.action-links li:active,
+ul.action-links li:disabled,
 html.js .view-commerce-message-messages .view-footer fieldset.collapsible .fieldset-legend a:hover,
 html.js .view-commerce-message-messages .view-footer fieldset.collapsible .fieldset-legend a:focus,
 html.js .view-commerce-message-messages .view-footer fieldset.collapsible .fieldset-legend a:active,
+html.js .view-commerce-message-messages .view-footer fieldset.collapsible .fieldset-legend a:disabled,
 .field-widget-inline-entity-form .container-inline input.form-submit:hover,
 .field-widget-inline-entity-form .container-inline input.form-submit:focus,
 .field-widget-inline-entity-form .container-inline input.form-submit:active,
+.field-widget-inline-entity-form .container-inline input.form-submit:disabled,
 input.ief-entity-submit:hover,
 input.ief-entity-submit:focus,
-input.ief-entity-submit:active {
+input.ief-entity-submit:active,
+input.ief-entity-submit:disabled {
   background: #359ff2;
   box-shadow: 0 1px 2px #cccccc, inset 0 1px 1px #7bb8ef;
   color: #fff;
@@ -1094,9 +1104,9 @@ ul.pager li.pager-current {
 }
 
 ul.pager li.pager-current {
-  -moz-box-shadow: inset 0 0 1px #fff;
-  -webkit-box-shadow: inset 0 0 1px #fff;
-  box-shadow: inset 0 0 1px #fff;
+  -moz-box-shadow: inset 0 0 1px white;
+  -webkit-box-shadow: inset 0 0 1px white;
+  box-shadow: inset 0 0 1px white;
   color: #737373;
 }
 

@@ -115,29 +115,15 @@
 
 #block-views-demo-content-slideshow-block-1 {
   /* HP blocks: Slideshow */
-  .bx-wrapper,
-  .bx-wrapper .bx-window {
-    height: 580px !important;
-    max-height: 580px;
-    min-width: 940px;
+  .bx-wrapper {
+    padding-bottom: 100px;
   }
-  .bx-wrapper .bx-window {
-    overflow: visible !important;
-  }
-  .bx-wrapper ul.event-slider {
 
+  .bx-wrapper ul.event-slider {
     li {
-      height: 480px;
       overflow: visible;
-      width: 940px;
-      img {
-        overflow: hidden;
-        height: 480px;
-        width: 940px;
-      }
     }
   }
-
   .views-field-nothing {
     background: #888;
     border: 1px solid #CCC;
@@ -191,7 +177,6 @@
       }
     }
   }
-
   .bx-prev {
     margin-left: 0;/* LTR */
     float: left; /* LTR */

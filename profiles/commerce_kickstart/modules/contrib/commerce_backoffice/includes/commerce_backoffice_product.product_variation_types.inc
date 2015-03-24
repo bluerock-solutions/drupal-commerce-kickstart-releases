@@ -162,7 +162,7 @@ function commerce_backoffice_product_form_commerce_product_ui_product_type_form_
  */
 function commerce_backoffice_product_variation_type_form_submit($form, &$form_state) {
   commerce_product_ui_product_type_form_submit($form, $form_state);
-  if ($form_state['values']['create_product_display']) {
+  if (!empty($form_state['values']['create_product_display'])) {
     $type_name = trim($form_state['values']['product_type']['type']);
 
     // Create the product display type.

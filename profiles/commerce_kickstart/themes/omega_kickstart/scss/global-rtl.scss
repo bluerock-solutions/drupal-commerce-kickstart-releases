@@ -454,7 +454,6 @@ div.messages.commerce-add-to-cart-confirmation {
 
 .node-product-type {
   .field-name-body {
-
     .read-more a,
     .read-less a {
       background-position: right top;
@@ -511,6 +510,7 @@ div.messages.commerce-add-to-cart-confirmation {
 /**
 * Checkout progress
 */
+ul.inline.commerce-checkout-progress,
 ol.inline.commerce-checkout-progress {
   margin-left: 10px;
   li {
@@ -712,20 +712,18 @@ ol.inline.commerce-checkout-progress {
 * --
 **************************************************/
 article.comment {
-
   header em {
     float: left;
   }
 }
 /* Comment form */
 .comment-wrapper {
-
-
 }
 .comment-form {
   .form-item {
+    clear: right;
     label {
-      float: right !important;
+      float: right;
       padding-right: 0;
       padding-left: 8px;
       text-align: left;
@@ -734,20 +732,13 @@ article.comment {
         content: ":";
       }
     }
-    .form-radios {
-      .form-item {
-        float: right;
-        margin-right: 0px;
-        margin-left: 15px;
-        .form-radio {
-          float: left;
-          margin-top: 4px;
-        }
-        label {
-          float: inherit;
-          text-align: inherit;
-          width: auto;
-        }
+    .form-radios,
+    .form-checkboxes {
+      float: right !important;
+      label {
+        float: inherit;
+        text-align: inherit;
+        width: auto;
       }
     }
   }

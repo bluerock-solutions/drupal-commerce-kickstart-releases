@@ -184,7 +184,7 @@ input[type="week"] {
   //height: 25px;
   margin: 1px;
   max-width: 100%;
-  padding: 5px;
+  padding: 0px 5px;
 }
 
 select {
@@ -655,6 +655,9 @@ select {
   min-height: 500px;
   height: 100%;
 }
+.front .section-content {
+  min-height: 100%;
+}
 /**********************************************
 * 3.1. Zone preface
 **********************************************/
@@ -860,35 +863,22 @@ select {
 #block-views-demo-content-slideshow-block-1 {
   /* HP blocks: Slideshow */
   position: relative;
-
-  .bx-wrapper,
-  .bx-wrapper .bx-window {
-    @include clearfix();
-    height: auto;
-    padding-bottom: 0;
-    overflow: visible !important;
-    width: 100% !important;
-    //max-width: 100% !important;
+  .bx-wrapper {
+    position: relative;
   }
-
+  .bx-wrapper .bx-window,
+  .bx-wrapper .bx-viewport {
+    overflow: visible !important;
+  }
   .bx-wrapper ul.event-slider {
-    width: 100%;
-
     li {
-      @include clearfix();
-      margin: 0 auto;
+      margin: 0;
       overflow: hidden;
-      width: 100%;
 
       a {
         display: block;
       }
 
-      img {
-        height: auto;
-        overflow: hidden;
-        width: 100%;
-      }
     }
   }
   .views-field-nothing,
@@ -1882,6 +1872,13 @@ div.messages.commerce-add-to-cart-confirmation {
 /**
 * Checkout progress
 */
+ul.inline.commerce-checkout-progress {
+  li {
+    display: block;
+    float: left;
+  }
+}
+ul.inline.commerce-checkout-progress,
 ol.inline.commerce-checkout-progress {
   margin-bottom: 0;
   margin-left: 10px;
@@ -2298,7 +2295,7 @@ ol.inline.commerce-checkout-progress {
 /* Page user review order */
 .page-user-orders {
   .field-name-commerce-order-total {
-    @include clearfix();
+    @include clearfix;
 
     &:after {
       content: ".";
@@ -2631,7 +2628,13 @@ article.comment {
 .comment-form {
   background-color: #ececec;
   padding: 15px;
+  .form-wrapper {
+    @include clearfix;
+    clear: both;
+    float: none;
+  }
   .form-item {
+    clear: left;
     label {
       float: left;
       padding-right: 8px;
@@ -2642,22 +2645,28 @@ article.comment {
         content: ":";
       }
     }
-    .form-radios {
-      .form-item {
-        display: inline;
-        float: left;
-        margin-right: 15px;
-        white-space: nowrap;
-        .form-radio {
-          float: right;
-          margin-top: 4px;
+    .form-radios,
+    .form-checkboxes {
+      float: left;
+      label {
+        float: inherit;
+        text-align: inherit;
+        width: auto;
+        &:after {
+          content: none;
         }
+      }
+      .form-item {
+        white-space: nowrap;
         label {
-          float: inherit;
+          float: none;
           text-align: inherit;
           width: auto;
         }
       }
+    }
+    .description {
+      clear: both;
     }
   }
   #edit-author--2 {
@@ -2689,6 +2698,9 @@ article.comment {
       font: normal 16px/21px "Open Sans", Arial, sans-serif;
       line-height: 30px;
       padding: 4px 15px;
+    }
+    .form-actions {
+      clear: both;
     }
   }
 }

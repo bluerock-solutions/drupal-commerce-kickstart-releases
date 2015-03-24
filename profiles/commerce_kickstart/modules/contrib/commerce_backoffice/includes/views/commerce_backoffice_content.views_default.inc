@@ -739,3 +739,14 @@ function commerce_backoffice_content_views_default_views() {
 
   return $views;
 }
+
+/**
+ * Implements hook_views_default_views_alter().
+ *
+ * Disable the content view provided by the admin_views module.
+ */
+function commerce_backoffice_content_views_default_views_alter(&$views) {
+  if (isset($views['admin_views_node'])) {
+    $views['admin_views_node']->disabled = TRUE;
+  }
+}

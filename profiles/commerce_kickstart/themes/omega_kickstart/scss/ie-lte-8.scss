@@ -72,6 +72,7 @@ div.messages.commerce-add-to-cart-confirmation {
 /**
 * Checkout progress
 */
+ul.inline.commerce-checkout-progress,
 ol.inline.commerce-checkout-progress {
   li {
     padding-right: 50px;
@@ -110,4 +111,3 @@ ol.inline.commerce-checkout-progress {
     }
   }
 }
-

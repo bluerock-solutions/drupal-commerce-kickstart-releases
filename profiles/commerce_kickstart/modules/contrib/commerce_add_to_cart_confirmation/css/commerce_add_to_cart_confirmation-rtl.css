@@ -13,8 +13,6 @@ div.messages.commerce-add-to-cart-confirmation .message-inner .button-wrapper {
   right: auto;
 }
 /* Product display */
-div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content {
-}
 div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .content .field-name-field-images {
   left: 0;
   right: -115px;
@@ -23,8 +21,8 @@ div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-dis
 div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .field .views-label,
 div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .field .field-label {
   float: right;
-  padding-right: 0;
   padding-left: 5px;
+  padding-right: 0;
 }
 div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .field {
   text-align: right;
@@ -34,8 +32,8 @@ div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-dis
 }
 div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-field-commerce-total .views-label {
   float: right;
-  padding-right: 0;
   padding-left: 5px;
+  padding-right: 0;
 }
 div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-field-commerce-total .field-content {
   float: none;

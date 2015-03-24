@@ -36,7 +36,8 @@ $serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "Deja
 
   &:hover,
   &:focus,
-  &:active {
+  &:active,
+  &:disabled {
     background: #eeeeee;
     color: #5A5A5A;
     text-shadow: 0 -1px 1px #fff;
@@ -51,7 +52,8 @@ $serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "Deja
 
   &:hover,
   &:focus,
-  &:active {
+  &:active,
+  &:disabled {
     background: #359ff2;
     box-shadow: 0 1px 2px #cccccc, inset 0 1px 1px #7bb8ef;
     color: #fff;

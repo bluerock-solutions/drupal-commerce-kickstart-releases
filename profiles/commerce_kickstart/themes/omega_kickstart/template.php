@@ -26,16 +26,18 @@ function omega_kickstart_preprocess_html(&$variables) {
 
 /**
  * Implements hook_css_alter().
+ *
  * TODO: Remove the function when patch will be applied to omega.
  * http://drupal.org/node/1784780
  */
 function omega_kickstart_css_alter(&$css) {
   global $language;
   if ($language->direction == LANGUAGE_RTL) {
-    foreach($css as $key => $item) {
-      if (isset($item['basename'])) {
-        $css[$key]['basename'] = 'RTL::' . $item['basename'];
+    foreach ($css as $key => $item) {
+      if (!isset($item['basename']) || strpos($key, '-rtl.css') !== FALSE) {
+        continue;
       }
+      $css[$key]['basename'] = 'RTL::' .  $item['basename'];
     }
   }
 }
@@ -49,4 +51,14 @@ function omega_kickstart_preprocess_field(&$variables) {
     return;
   }
   $variables['theme_hook_suggestions'][] = 'field__fences_h2__node';
+}
+
+/**
+ * Override the submitted variable.
+ */
+function omega_kickstart_preprocess_node(&$variables) {
+  $variables['submitted'] = $variables['date'] . ' - ' . $variables['name'];
+  if ($variables['type'] == 'blog_post') {
+    $variables['submitted'] = t('By') . ' ' . $variables['name'] . ', ' . $variables['date'];
+  }
 }

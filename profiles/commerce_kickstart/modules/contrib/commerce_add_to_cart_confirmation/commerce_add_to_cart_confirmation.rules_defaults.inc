@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @file
- * commerce_add_to_cart_confirmation.rules_defaults.inc
+ * Default rule configurations for Commerce add to cart confirmation.
  */
 
 /**
@@ -20,7 +21,7 @@ function commerce_add_to_cart_confirmation_default_rules_configuration() {
   return $items;
 }
 
-/*
+/**
  * Implements hook_default_rules_configuration_alter().
  */
 function commerce_add_to_cart_confirmation_default_rules_configuration_alter(&$configs) {
