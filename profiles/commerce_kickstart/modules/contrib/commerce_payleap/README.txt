@@ -1,14 +1,14 @@
 Overview
 ========
-Payleap gateway support for Drupal Commerce module.
+PayLeap gateway support for Drupal Commerce module.
 
 Summary
 =======
 Adds two payment methods:
 
- * Payleap direct - directly process a credit card request.
+ * PayLeap direct - directly process a credit card request.
 
- * Payleap CardOnFile - Saves the credit card information before processing for
+ * PayLeap CardOnFile - Saves the credit card information before processing for
    later use.
 
 Methods

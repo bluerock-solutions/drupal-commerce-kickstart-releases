@@ -20,9 +20,9 @@ class CommercePayleapTest extends CommerceBaseTestCase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Payleap transaction test',
-      'description' => 'Test Payleap service.',
-      'group' => 'Drupal Commerce Payleap',
+      'name' => 'PayLeap transaction test',
+      'description' => 'Test PayLeap service.',
+      'group' => 'Drupal Commerce PayLeap',
     );
   }
 
@@ -68,7 +68,7 @@ class CommercePayleapTest extends CommerceBaseTestCase {
   }
 
   /**
-   *  Return an array with Payleap settings
+   *  Return an array with PayLeap settings
    */
   protected function getPayleapSettings($transaction_type = PAYLEAP_TXN_TYPE_DIRECT_CAPTURE) {
     return array(
@@ -88,7 +88,7 @@ class CommercePayleapTest extends CommerceBaseTestCase {
    }
 
   /**
-   * Test the Payleap direct transaction.
+   * Test the PayLeap direct transaction.
    */
   public function testCommercePayleapDirectTransaction() {
     $user = $this->store_customer;
@@ -107,7 +107,7 @@ class CommercePayleapTest extends CommerceBaseTestCase {
   }
 
   /**
-   * Test the Payleap Auth transaction.
+   * Test the PayLeap Auth transaction.
    */
   public function testCommercePayleapAuthTransaction() {
     $user = $this->store_customer;

@@ -76,7 +76,7 @@ function commerce_hosted_pci_capture_access($order, $transaction) {
   }
 
   // Return FALSE if it is more than 30 days past the original authorization.
-  if (time() - $transaction->created > 86400 * 30) {
+  if (REQUEST_TIME - $transaction->created > 86400 * 30) {
     return FALSE;
   }
 
@@ -109,7 +109,7 @@ function commerce_hosted_pci_void_access($order, $transaction) {
 
   // Return FALSE if it is more than 24 hours since the last update to the
   // transaction, as it will already have been settled.
-  if (time() - $transaction->changed > 2600 * 24) {
+  if (REQUEST_TIME - $transaction->changed > 2600 * 24) {
     return FALSE;
   }
 
@@ -136,7 +136,7 @@ function commerce_hosted_pci_credit_access($order, $transaction) {
   }
 
   // Return FALSE if it is more than 120 days past the original capture.
-  if (time() - $transaction->created > 86400 * 120) {
+  if (REQUEST_TIME - $transaction->created > 86400 * 120) {
     return FALSE;
   }
 
@@ -296,9 +296,7 @@ function commerce_hosted_pci_submit_form($payment_method, $pane_values = NULL, $
   $fields = array('code' => '');
 
   // Add the credit card types array if necessary.
-  $card_types = array_diff(array_values($payment_method['settings']['card_types']), array(0));
-
-  if (!empty($card_types)) {
+  if ($card_types = array_diff(array_values($payment_method['settings']['card_types']), array(0))) {
     $fields['type'] = $card_types;
   }
 
@@ -460,7 +458,6 @@ function commerce_hosted_pci_submit_form_validate($payment_method, $pane_form, $
 
   return $valid;
 }
-
 
 /**
  * Payment method callback: checkout form submission.
@@ -651,7 +648,6 @@ function commerce_hosted_pci_submit_form_submit($payment_method, $pane_form, $pa
   return TRUE;
 }
 
-
 /**
  * Build a name-value pair array of data to transmit for this transaction.
  *
@@ -732,7 +728,6 @@ function commerce_hosted_pci_get_transaction_data($order, $charge, $payment_info
 
   return $data;
 }
-
 
 /**
  * Post data to Hosted PCI using cURL library.
@@ -851,7 +846,6 @@ function commerce_hosted_pci_get_transaction_log($response) {
   return $log;
 }
 
-
 /**
  * Callback for card on file delete or update.
  */
@@ -864,7 +858,6 @@ function commerce_hosted_pci_cardonfile_update_delete($form, &$form_state, $paym
   }
   return TRUE;
 }
-
 
 /**
  * Adding Hosted Pci credit card form in the card on file form.
@@ -1116,7 +1109,6 @@ function _commerce_hosted_pci_get_js() {
       jQuery("#edit-commerce-payment-payment-details-credit-card-response-code").val(errorCode);
       sendHPCIChangeStyleMsg("ccNum", "border", "1px solid #C7C7C7");
       sendHPCIChangeStyleMsg("ccCVV", "border", "1px solid #C7C7C7");
-      console.log(errorCode);
       if (errorCode == "MCC_1") {
         sendHPCIChangeStyleMsg("ccNum", "border", "2px solid red");
         if (jQuery("#edit-commerce-payment .ccnum-error").length == 0) {
@@ -1155,12 +1147,24 @@ function _commerce_hosted_pci_get_js() {
       // Remove any values in the response field.
       jQuery("#edit-commerce-payment-payment-details-credit-card-response-code").val("");
       // Submit the form after adding credit card informations.
-      jQuery("#edit-commerce-payment-payment-details-credit-card-number").parents("form").first().submit();
+
+      // Validate the form if the selected date is valid.
+      var current_date = new Date();
+      if (jQuery("#edit-commerce-payment-payment-details-credit-card-exp-month").val() >= (current_date.getMonth() + 1) && jQuery("#edit-commerce-payment-payment-details-credit-card-exp-year").val() >= current_date.getFullYear()) {
+        jQuery("#edit-commerce-payment-payment-details-credit-card-number").parents("form").first().submit();
+      }
+      else {
+        if (jQuery("#edit-commerce-payment .ccdate-error").length == 0) {
+          jQuery("<div class=\"messages error ccdate-error\"><h2 class=\"element-invisible\">Error message</h2>You have entered an expired credit card.</div>").insertBefore("#edit-commerce-payment-payment-method");
+        }
+        Drupal.enableContinueBtn();
+        return false;
+      }
+
     }
   ';
   return $script;
 }
-
 
 /**
  * Implements hook_commerce_kickstart_service_provider().
@@ -1184,7 +1188,6 @@ function commerce_hosted_pci_commerce_kickstart_service_provider() {
     ),
   );
 }
-
 
 /**
  * Commerce kickstart service provider requirements callback method.

@@ -73,14 +73,15 @@
     width: 100%;
 
     li {
-      float: inherit;
       font-size: 0.8em;
+      margin-right: -4px; /* LTR */
       width: auto;
 
       a {
         display: inline;
         border-left-width: 0;
         border-right-width: 0;
+
         &.active,
         &:hover {
           border-left-width: 0;
@@ -93,6 +94,8 @@
       }
       &.last a {
         border-right: $mainmenuitemborder; /* LTR */
+        margin-right: 0; /* LTR */
+        margin-left: -2px; /* LTR */
       }
     }
   }

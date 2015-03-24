@@ -162,13 +162,13 @@ function commerce_backoffice_product_form_commerce_product_ui_product_type_form_
  */
 function commerce_backoffice_product_variation_type_form_submit($form, &$form_state) {
   commerce_product_ui_product_type_form_submit($form, $form_state);
+  $type_name = trim($form_state['values']['product_type']['type']);
+  $human_name = trim($form_state['values']['product_type']['name']);
   if (!empty($form_state['values']['create_product_display'])) {
-    $type_name = trim($form_state['values']['product_type']['type']);
-
     // Create the product display type.
     $type = node_type_set_defaults();
     $type->type = $type_name;
-    $type->name = trim($form_state['values']['product_type']['name']);
+    $type->name = $human_name;
     $type->custom = TRUE;
     $type->base = 'node_content';
     $status = node_type_save($type);
@@ -271,7 +271,7 @@ function commerce_backoffice_product_variation_type_form_submit($form, &$form_st
   }
 
   drupal_get_messages('status', TRUE);
-  drupal_set_message(t('Product variation type saved.'));
+  drupal_set_message(t('Product variation type %type saved.', array('%type' => $human_name)));
 
   if ($form_state['triggering_element']['#parents'][0] == 'save_continue') {
     $form_state['redirect'] = 'admin/commerce/config/product-variation-types/' . strtr($type_name, '_', '-') . '/fields';

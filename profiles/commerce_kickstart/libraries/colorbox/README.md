@@ -6,11 +6,24 @@ Send me your language configuration files.  See /i18n/jquery.colorbox-de.js as a
 
 ## Changelog:
 
-### Version 1.4.3 - 2013/1/18
+### Version 1.4.6 - 2013/3/19
+
+* Minor change to work around a jQuery 1.4.2 bug for legacy users.
+
+### Version 1.4.5 - 2013/3/10
+
+* Minor change to apply the close and className properties sooner.
+
+### Version 1.4.4 - 2013/3/10
+
+* Fixed an issue with percent-based heights in iOS
+* Fixed an issue with ajax requests being applied at the wrong time.
+
+### Version 1.4.3 - 2013/2/18
 
 * Made image preloading aware of retina settings.
 
-### Version 1.4.2 - 2013/1/18
+### Version 1.4.2 - 2013/2/18
 
 * Removed $.contains for compatibility with jQuery 1.3.x
 

@@ -10,7 +10,8 @@ function _jirafe_dashboard_page() {
     $markup = theme('jirafe_dashboard', array('url' => url('admin/commerce/jirafe/inline')));
   }
   else {
-    $markup = t('Your Jirafe account is not configured yet! If you already got your application ID and token, enter them !configuration_link.<br/><br/>To create your Jirafe account visit the Commerce Guys !marketplace', array('!configuration_link' =>  l('here', 'admin/commerce/config/jirafe'), '!marketplace' => l('Marketplace', url('https://marketplace.commerceguys.com/service/jirafe'))));
+    global $base_url;
+    $markup = t('Your Jirafe account is not configured yet! If you already got your application ID and token, enter them !configuration_link.<br/><br/>To create your Jirafe account visit the Commerce Guys !marketplace', array('!configuration_link' =>  l('here', 'admin/commerce/config/jirafe'), '!marketplace' => l('Marketplace', url('https://marketplace.commerceguys.com/service/jirafe', array('query' => array('source' => $base_url))))));
   }
   $output['jirafe']['#markup'] = $markup;
   return $output;

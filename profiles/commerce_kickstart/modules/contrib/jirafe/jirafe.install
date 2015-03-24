@@ -12,19 +12,21 @@ function jirafe_uninstall() {
  * Implements hook_requirements().
  */
 function jirafe_requirements($phase) {
+  $t = get_t();
   $requirements = array();
   if ($phase != 'runtime') {
     return $requirements;
   }
 
-  $requirements['jirafe'] = array('title' => t('Jirafe'));
+  $requirements['jirafe'] = array('title' => $t('Jirafe'));
 
   $config = variable_get('jirafe_config');
   if (!empty($config['token']) && !empty($config['app_id'])) {
-    $requirements['jirafe']['value'] = t('Token: @token, Application ID: @app_id', array('@token' => $config['token'], '@app_id' => $config['app_id']));
+    $requirements['jirafe']['value'] = $t('Token: @token, Application ID: @app_id', array('@token' => $config['token'], '@app_id' => $config['app_id']));
   }
   else {
-    $requirements['jirafe']['value'] = t('Jirafe credentials are not set. Get your credentials at !link', array('!link' => variable_get('jirafe_create_account_link', l('Jirafe.com', 'http://www.jirafe.com'))));
+    global $base_url;
+    $requirements['jirafe']['value'] = $t('Jirafe credentials are not set. Get your credentials at !link', array('!link' => variable_get('jirafe_create_account_link', l('Jirafe', url('https://marketplace.commerceguys.com/service/jirafe', array('query' => array('source' => $base_url)))))));
     $requirements['jirafe']['severity'] = REQUIREMENT_WARNING;
   }
   return $requirements;

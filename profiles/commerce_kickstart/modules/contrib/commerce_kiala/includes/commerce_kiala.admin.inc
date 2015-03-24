@@ -140,36 +140,17 @@ function commerce_kiala_settings_form($form, &$form_state) {
                           array('@url' => 'http://locateandselect.kiala.com/info/ws')
                         )
   );
+  $form_ls_ws_search = &$form['commerce_kiala_ls_search']['commerce_kiala_ls_ws_search'];
 
-  $form['commerce_kiala_ls_search']['commerce_kiala_ls_ws_search']['ls_ws_search_url'] = array(
+  $form_ls_ws_search['ls_ws_search_url'] = array(
     '#type' => 'textfield',
-    '#title' => t('Search URL'),
+    '#title' => t('API URL'),
     '#default_value' => isset($default_values['ls_ws_search_url']) ? $default_values['ls_ws_search_url'] : '',
-    '#description' => t('Don\'t change, unless instructed by Kiala.'),
+    '#disabled' => TRUE,
   );
-  $form['commerce_kiala_ls_search']['commerce_kiala_ls_ws_search']['ls_ws_search_params'] = array(
-    '#type' => 'fieldset',
-    '#collapsible' => !empty($default_values['ls_ws_search_params']),
-    '#tree' => TRUE,
-    '#title' => t('URL Parameters'),
-    '#attributes' => array('class' => array('commerce-kiala-url-params')),
-    '#description' => t('Technical details on the parameters can be found in the <a href=@url>Developer Guide</a>.',
-                          array('@url' => 'http://locateandselect.kiala.com/info/ws')
-                        ),
-  );
+
   if (!empty($default_values['ls_ws_search_params'])) {
-    foreach ($default_values['ls_ws_search_params'] as $param => $param_value) {
-      $form['commerce_kiala_ls_search']['commerce_kiala_ls_ws_search']['ls_ws_search_params'][$param] = array(
-        '#type' => 'textfield',
-        '#field_prefix' => check_plain($param),
-        '#default_value' => $param_value,
-      );
-    }
-  }
-  else {
-    $form['commerce_kiala_ls_search']['commerce_kiala_ls_ws_search']['ls_ws_search_params']['no_params'] = array(
-      '#markup' => t('No parameters defined'),
-    );
+    $form_ls_ws_search['ls_ws_search_params'] = commerce_kiala_admin_settings_params_element($default_values['ls_ws_search_params'], 'http://locateandselect.kiala.com/info/ws');
   }
 
 
@@ -181,21 +162,23 @@ function commerce_kiala_settings_form($form, &$form_state) {
                           array('@url' => 'http://locateandselect.kiala.com/info/search')
                         )
   );
-  $form['commerce_kiala_ls_search']['commerce_kiala_ls_map_search']['ls_map_search_url'] = array(
+  $form_ls_map_search = &$form['commerce_kiala_ls_search']['commerce_kiala_ls_map_search'];
+
+  $form_ls_map_search['ls_map_search_url'] = array(
     '#type' => 'textfield',
-    '#title' => t('Search URL'),
+    '#title' => t('API URL'),
     '#default_value' => isset($default_values['ls_map_search_url']) ? $default_values['ls_map_search_url'] : '',
-    '#description' => t('Don\'t change, unless instructed by Kiala.'),
+    '#disabled' => TRUE,
   );
 
-  $form['commerce_kiala_ls_search']['commerce_kiala_ls_map_search']['ls_map_search_embed_type'] = array(
+  $form_ls_map_search['ls_map_search_embed_type'] = array(
     '#type' => 'select',
     '#title' => t('Embedding Type'),
     '#default_value' => isset($default_values['ls_map_search_embed_type']) ? $default_values['ls_map_search_embed_type'] : NULL,
     '#description' => t('Choose the method to embed the map.<br />Available Options: !embed_description', array('!embed_description' => $embed_description)),
     '#options' => $embed_options,
   );
-  $form['commerce_kiala_ls_search']['commerce_kiala_ls_map_search']['ls_map_search_modal_link_text'] = array(
+  $form_ls_map_search['ls_map_search_modal_link_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Modal Link Text'),
     '#default_value' => isset($default_values['ls_map_search_modal_link_text']) ? $default_values['ls_map_search_modal_link_text'] : '',
@@ -206,7 +189,7 @@ function commerce_kiala_settings_form($form, &$form_state) {
       ),
     ),
   );
-  $form['commerce_kiala_ls_search']['commerce_kiala_ls_map_search']['ls_map_search_width'] = array(
+  $form_ls_map_search['ls_map_search_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
     '#default_value' => isset($default_values['ls_map_search_width']) ? $default_values['ls_map_search_width'] : '',
@@ -214,7 +197,7 @@ function commerce_kiala_settings_form($form, &$form_state) {
     '#description' => t('The width of the embedded map.'),
     '#size' => 10,
   );
-  $form['commerce_kiala_ls_search']['commerce_kiala_ls_map_search']['ls_map_search_height'] = array(
+  $form_ls_map_search['ls_map_search_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height'),
     '#default_value' => isset($default_values['ls_map_search_height']) ? $default_values['ls_map_search_height'] : '',
@@ -223,29 +206,8 @@ function commerce_kiala_settings_form($form, &$form_state) {
     '#size' => 10,
   );
 
-  $form['commerce_kiala_ls_search']['commerce_kiala_ls_map_search']['ls_map_search_params'] = array(
-    '#type' => 'fieldset',
-    '#collapsible' => !empty($default_values['ls_map_search_params']),
-    '#tree' => TRUE,
-    '#title' => t('URL Parameters'),
-    '#attributes' => array('class' => array('commerce-kiala-url-params')),
-    '#description' => t('Technical details on the parameters can be found in the <a href=@url>Developer Guide</a>.',
-                          array('@url' => 'http://locateandselect.kiala.com/info/search')
-                        ),
-  );
   if (!empty($default_values['ls_map_search_params'])) {
-    foreach ($default_values['ls_map_search_params'] as $param => $param_value) {
-      $form['commerce_kiala_ls_search']['commerce_kiala_ls_map_search']['ls_map_search_params'][$param] = array(
-        '#type' => 'textfield',
-        '#field_prefix' => check_plain($param),
-        '#default_value' => $param_value,
-      );
-    }
-  }
-  else {
-    $form['commerce_kiala_ls_search']['commerce_kiala_ls_map_search']['ls_map_search_params']['no_params'] = array(
-      '#markup' => t('No parameters defined'),
-    );
+    $form_ls_map_search['ls_map_search_params'] = commerce_kiala_admin_settings_params_element($default_values['ls_map_search_params'], 'http://locateandselect.kiala.com/info/search');
   }
 
 
@@ -267,14 +229,16 @@ function commerce_kiala_settings_form($form, &$form_state) {
                           array('@url' => 'http://locateandselect.kiala.com/info/ws')
                         )
   );
-  $form['commerce_kiala_ls_details']['commerce_kiala_ls_ws_details']['ls_ws_details_url'] = array(
+  $form_ls_ws_details = &$form['commerce_kiala_ls_details']['commerce_kiala_ls_ws_details'];
+
+  $form_ls_ws_details['ls_ws_details_url'] = array(
     '#type' => 'textfield',
-    '#title' => t('Deatils URL'),
+    '#title' => t('API URL'),
     '#default_value' => isset($default_values['ls_ws_details_url']) ? $default_values['ls_ws_details_url'] : '',
-    '#description' => t('Don\'t change, unless instructed by Kiala.'),
+    '#disabled' => TRUE,
   );
 
-  $form['commerce_kiala_ls_details']['commerce_kiala_ls_ws_details']['ls_ws_details_cache_lifetime'] = array(
+  $form_ls_ws_details['ls_ws_details_cache_lifetime'] = array(
     '#type' => 'select',
     '#title' => t('Response cache'),
     '#default_value' => isset($default_values['ls_ws_details_cache_lifetime']) ? $default_values['ls_ws_details_cache_lifetime'] : 'none',
@@ -283,7 +247,7 @@ function commerce_kiala_settings_form($form, &$form_state) {
                         This will help reduce the number of requests made to the Kiala web service.
                         If this is set to "No cache", then every view of a Kiala point\'s details will cause a request to the Kiala web service.'),
   );
-  $form['commerce_kiala_ls_details']['commerce_kiala_ls_ws_details']['ls_ws_details_image_style'] = array(
+  $form_ls_ws_details['ls_ws_details_image_style'] = array(
     '#type' => 'select',
     '#title' => t('Point Picture Image Style'),
     '#default_value' => isset($default_values['ls_ws_details_image_style']) ? $default_values['ls_ws_details_image_style'] : '',
@@ -291,30 +255,8 @@ function commerce_kiala_settings_form($form, &$form_state) {
     '#options' => image_style_options(),
   );
 
-
-  $form['commerce_kiala_ls_details']['commerce_kiala_ls_ws_details']['ls_ws_details_params'] = array(
-    '#type' => 'fieldset',
-    '#collapsible' => !empty($default_values['ls_ws_details_params']),
-    '#tree' => TRUE,
-    '#title' => t('URL Parameters'),
-    '#attributes' => array('class' => array('commerce-kiala-url-params')),
-    '#description' => t('Technical details on the parameters can be found in the <a href=@url>Developer Guide</a>.',
-                          array('@url' => 'http://locateandselect.kiala.com/info/ws')
-                        ),
-  );
   if (!empty($default_values['ls_ws_details_params'])) {
-    foreach ($default_values['ls_ws_details_params'] as $param => $param_value) {
-      $form['commerce_kiala_ls_details']['commerce_kiala_ls_ws_details']['ls_ws_details_params'][$param] = array(
-        '#type' => 'textfield',
-        '#field_prefix' => check_plain($param),
-        '#default_value' => $param_value,
-      );
-    }
-  }
-  else {
-    $form['commerce_kiala_ls_details']['commerce_kiala_ls_ws_details']['ls_ws_details_params']['no_params'] = array(
-      '#markup' => t('No parameters defined'),
-    );
+    $form_ls_ws_details['ls_ws_details_params'] = commerce_kiala_admin_settings_params_element($default_values['ls_ws_details_params'], 'http://locateandselect.kiala.com/info/ws');
   }
 
 
@@ -326,20 +268,22 @@ function commerce_kiala_settings_form($form, &$form_state) {
                           array('@url' => 'http://locateandselect.kiala.com/info/details')
                         ),
   );
-  $form['commerce_kiala_ls_details']['commerce_kiala_ls_map_details']['ls_map_details_url'] = array(
+  $form_ls_map_details = &$form['commerce_kiala_ls_details']['commerce_kiala_ls_map_details'];
+
+  $form_ls_map_details['ls_map_details_url'] = array(
     '#type' => 'textfield',
-    '#title' => t('Search URL'),
+    '#title' => t('API URL'),
     '#default_value' => isset($default_values['ls_map_details_url']) ? $default_values['ls_map_details_url'] : '',
-    '#description' => t('Don\'t change, unless instructed by Kiala.'),
+    '#disabled' => TRUE,
   );
-  $form['commerce_kiala_ls_details']['commerce_kiala_ls_map_details']['ls_map_details_embed_type'] = array(
+  $form_ls_map_details['ls_map_details_embed_type'] = array(
     '#type' => 'select',
     '#title' => t('Embedding Type'),
     '#default_value' => isset($default_values['ls_map_details_embed_type']) ? $default_values['ls_map_details_embed_type'] : NULL,
     '#description' => t('Choose the method to embed the map.<br />Available Options: !embed_description', array('!embed_description' => $embed_description)),
     '#options' => $embed_options,
   );
-  $form['commerce_kiala_ls_details']['commerce_kiala_ls_map_details']['ls_map_details_modal_link_text'] = array(
+  $form_ls_map_details['ls_map_details_modal_link_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Modal Link Text'),
     '#default_value' => isset($default_values['ls_map_details_modal_link_text']) ? $default_values['ls_map_details_modal_link_text'] : '',
@@ -350,7 +294,7 @@ function commerce_kiala_settings_form($form, &$form_state) {
       ),
     ),
   );
-  $form['commerce_kiala_ls_details']['commerce_kiala_ls_map_details']['ls_map_details_width'] = array(
+  $form_ls_map_details['ls_map_details_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
     '#default_value' => isset($default_values['ls_map_details_width']) ? $default_values['ls_map_details_width'] : '',
@@ -358,7 +302,7 @@ function commerce_kiala_settings_form($form, &$form_state) {
     '#description' => t('The width of the embedded map.'),
     '#size' => 10,
   );
-  $form['commerce_kiala_ls_details']['commerce_kiala_ls_map_details']['ls_map_details_height'] = array(
+  $form_ls_map_details['ls_map_details_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height'),
     '#default_value' => isset($default_values['ls_map_details_height']) ? $default_values['ls_map_details_height'] : '',
@@ -367,29 +311,8 @@ function commerce_kiala_settings_form($form, &$form_state) {
     '#size' => 10,
   );
 
-  $form['commerce_kiala_ls_details']['commerce_kiala_ls_map_details']['ls_map_details_params'] = array(
-    '#type' => 'fieldset',
-    '#collapsible' => !empty($default_values['ls_map_details_params']),
-    '#tree' => TRUE,
-    '#title' => t('URL Parameters'),
-    '#attributes' => array('class' => array('commerce-kiala-url-params')),
-    '#description' => t('Technical details on the parameters can be found in the <a href=@url>Developer Guide</a>.',
-                          array('@url' => 'http://locateandselect.kiala.com/info/details')
-                        ),
-  );
   if (!empty($default_values['ls_map_details_params'])) {
-    foreach ($default_values['ls_map_details_params'] as $param => $param_value) {
-      $form['commerce_kiala_ls_details']['commerce_kiala_ls_map_details']['ls_map_details_params'][$param] = array(
-        '#type' => 'textfield',
-        '#field_prefix' => check_plain($param),
-        '#default_value' => $param_value,
-      );
-    }
-  }
-  else {
-    $form['commerce_kiala_ls_details']['commerce_kiala_ls_map_details']['ls_map_details_params']['no_params'] = array(
-      '#markup' => t('No parameters defined'),
-    );
+    $form_ls_map_details['ls_map_details_params'] = commerce_kiala_admin_settings_params_element($default_values['ls_map_details_params'], 'http://locateandselect.kiala.com/info/details');
   }
 
 

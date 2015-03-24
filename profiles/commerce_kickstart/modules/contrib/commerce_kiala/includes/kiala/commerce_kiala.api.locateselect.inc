@@ -52,7 +52,7 @@ class CommerceKialaAPIQueryLocateSelectWS extends CommerceKialaAPIQuery {
       return $return;
     }
 
-    $shortID = intval($xml['shortId']);
+    $shortID = (string)$xml['shortId'];
     if (empty($shortID)) {
       return $return;
     }
@@ -65,7 +65,7 @@ class CommerceKialaAPIQueryLocateSelectWS extends CommerceKialaAPIQuery {
     }
 
     // Parse point response
-    $return['shortId'] = intval($xml['shortId']);
+    $return['shortId'] = (string)$xml['shortId'];
     if (isset($xml->name)) {
       $return['name'] = strval($xml->name);
     }

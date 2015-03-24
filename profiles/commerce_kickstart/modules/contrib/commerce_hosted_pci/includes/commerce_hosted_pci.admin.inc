@@ -72,7 +72,7 @@ function commerce_hosted_pci_capture_form_validate($form, &$form_state) {
   }
 
   // If the authorization has expired, display an error message and redirect.
-  if (time() - $transaction->created > 86400 * 30) {
+  if (REQUEST_TIME - $transaction->created > 86400 * 30) {
     drupal_set_message(t('This authorization has passed its 30 day limit cannot be captured.'), 'error');
     drupal_goto('admin/commerce/orders/' . $form_state['order']->order_id . '/payment');
   }
@@ -245,7 +245,7 @@ function commerce_hosted_pci_credit_form_validate($form, &$form_state) {
 
   // If the transaction is older than 120 days, display an error message and
   // redirect.
-  if (time() - $transaction->created > 86400 * 120) {
+  if (REQUEST_TIME - $transaction->created > 86400 * 120) {
     drupal_set_message(t('This capture has passed its 120 day limit for issuing credits.'), 'error');
     drupal_goto('admin/commerce/orders/' . $form_state['order']->order_id . '/payment');
   }
@@ -270,7 +270,6 @@ function commerce_hosted_pci_credit_form_submit($form, &$form_state) {
 
   // Request Hosted PCI service.
   $response = commerce_hosted_pci_transaction_process(COMMERCE_CREDIT_CREDIT, $settings, $data);
-
   // The call is valid and the payment gateway has been approved.
   if ($response && $response['status'] == 'success' && $response['pxyResponse_responseStatus'] == 'approved') {
 
@@ -297,7 +296,7 @@ function commerce_hosted_pci_credit_form_submit($form, &$form_state) {
     $transaction->payload[REQUEST_TIME] = commerce_hosted_pci_get_transaction_log($response);
 
     // Display a failure message from Hosted Pci.
-    drupal_set_message(t('Credit failed'), 'error');
+    drupal_set_message(t('Credit failed') . '<br />' . t('@reason', array('@reason' => $response['pxyResponse_fullNativeResp']['txnResponse_responseText'])), 'error');
 
     commerce_payment_transaction_save($transaction);
   }

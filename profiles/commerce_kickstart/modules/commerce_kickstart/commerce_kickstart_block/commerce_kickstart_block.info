@@ -33,9 +33,9 @@ features[menu_links][] = secondary-navigation_contact:node/1
 features[variable][] = menu_secondary_links_source
 files[] = commerce_kickstart_block.module
 
-; Information added by drupal.org packaging script on 2013-02-22
-version = "7.x-2.4"
+; Information added by drupal.org packaging script on 2013-03-21
+version = "7.x-2.5"
 core = "7.x"
 project = "commerce_kickstart"
-datestamp = "1361546441"
+datestamp = "1363887013"
 

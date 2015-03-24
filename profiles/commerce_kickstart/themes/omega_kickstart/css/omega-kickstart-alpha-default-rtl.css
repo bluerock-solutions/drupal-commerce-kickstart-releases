@@ -33,14 +33,20 @@
   .navigation .primary-menu ul,
   .navigation .second-menu ul {
     float: right !important; }
-    .navigation .primary-menu ul li.first a,
-    .navigation .second-menu ul li.first a {
-      border-right: 1px solid #cccccc !important;
-      border-left: 0 !important; }
-    .navigation .primary-menu ul li.last a,
-    .navigation .second-menu ul li.last a {
-      border-left: 1px solid #cccccc !important;
-      border-right: 0 !important; }
+    .navigation .primary-menu ul li,
+    .navigation .second-menu ul li {
+      margin-right: 0 !important;
+      margin-left: -4px !important; }
+      .navigation .primary-menu ul li.first a,
+      .navigation .second-menu ul li.first a {
+        border-right: 1px solid #cccccc !important;
+        border-left: none !important; }
+      .navigation .primary-menu ul li.last a,
+      .navigation .second-menu ul li.last a {
+        border-left: 1px solid #cccccc !important;
+        border-right: none !important;
+        margin-right: -2px !important;
+        margin-left: 0 !important; }
   .navigation .primary-menu {
     float: right !important;
     margin-right: 0 !important;

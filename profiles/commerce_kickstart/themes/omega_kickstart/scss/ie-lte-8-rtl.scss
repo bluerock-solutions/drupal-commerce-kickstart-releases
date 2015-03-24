@@ -43,6 +43,8 @@ img {
 .navigation .primary-menu ul li,
 .navigation .second-menu ul li {
   float: right !important;
+  margin-right: 0;
+  margin-left: 0;
   width: auto;
 
   a {

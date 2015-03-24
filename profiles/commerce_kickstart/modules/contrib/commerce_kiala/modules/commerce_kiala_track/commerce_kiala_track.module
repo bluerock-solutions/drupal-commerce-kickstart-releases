@@ -15,10 +15,11 @@ function commerce_kiala_track_menu() {
     'title' => 'Tracking',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('commerce_kiala_track_admin_trackandtrace_form', 3),
-    'access arguments' => array('administer kiala services'),
+    'access callback' => 'commerce_kiala_track_admin_trackandtrace_page_access',
+    'access arguments' => array(3),
     'file' => 'commerce_kiala_track.admin.inc',
     'type' => MENU_LOCAL_TASK,
-    'weight' => 16,
+    'weight' => 30,
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
   );
 
@@ -30,6 +31,25 @@ function commerce_kiala_track_menu() {
   );
 
   return $items;
+}
+
+/**
+ * Access callback for order admin page
+ */
+function commerce_kiala_track_admin_trackandtrace_page_access($order) {
+  if (!user_access('administer kiala services')) {
+    return FALSE;
+  }
+
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+  // DENY if no kiala point associated with the order
+  $point_id = $order_wrapper->kiala_point_id->value();
+  if (empty($point_id)) {
+    return FALSE;
+  }
+
+  return TRUE;
 }
 
 /**
@@ -372,20 +392,23 @@ function commerce_kiala_track_form_commerce_kiala_settings_form_alter(&$form, &$
     '#group' => 'groups',
     '#weight' => 2,
   );
+  $form_tracktrace = &$form['commerce_kiala_tracktrace'];
+
   /*
-  $form['commerce_kiala_tracktrace']['tracktrace_ws_url'] = array(
+  $form_tracktrace['tracktrace_ws_url'] = array(
     '#type' => 'textfield',
     '#title' => t('API URL'),
     '#default_value' => isset($default_values['tracktrace_ws_url']) ? $default_values['tracktrace_ws_url'] : '',
   );*/
 
-  $form['commerce_kiala_tracktrace']['tracktrace_iframe_url'] = array(
+  $form_tracktrace['tracktrace_iframe_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Track and trace iFrame url'),
     '#default_value' => isset($default_values['tracktrace_iframe_url']) ? $default_values['tracktrace_iframe_url'] : '',
+    '#disabled' => TRUE,
   );
 /*
-  $form['commerce_kiala_tracktrace']['tracktrace_display_method'] = array(
+  $form_tracktrace['tracktrace_display_method'] = array(
     '#type' => 'radios',
     '#title' => t('Track and trace display method'),
     '#options' => array(
@@ -396,14 +419,14 @@ function commerce_kiala_track_form_commerce_kiala_settings_form_alter(&$form, &$
   );*/
 
   $embed_options = commerce_kiala_embed_options();
-  $form['commerce_kiala_tracktrace']['tracktrace_embed_type'] = array(
+  $form_tracktrace['tracktrace_embed_type'] = array(
     '#type' => 'select',
     '#title' => t('Embedding Type'),
     '#default_value' => isset($default_values['tracktrace_embed_type']) ? $default_values['tracktrace_embed_type'] : NULL,
     '#description' => t('Choose the method to embed the map.'),
     '#options' => $embed_options,
   );
-  $form['commerce_kiala_tracktrace']['tracktrace_modal_link_text'] = array(
+  $form_tracktrace['tracktrace_modal_link_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Modal Link Text'),
     '#default_value' => isset($default_values['tracktrace_modal_link_text']) ? $default_values['tracktrace_modal_link_text'] : '',
@@ -415,7 +438,7 @@ function commerce_kiala_track_form_commerce_kiala_settings_form_alter(&$form, &$
     ),
   );
 
-  $form['commerce_kiala_tracktrace']['tracktrace_iframe_width'] = array(
+  $form_tracktrace['tracktrace_iframe_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
     '#default_value' => isset($default_values['tracktrace_iframe_width']) ? $default_values['tracktrace_iframe_width'] : '',
@@ -423,7 +446,7 @@ function commerce_kiala_track_form_commerce_kiala_settings_form_alter(&$form, &$
     '#description' => t('The width of the embedded form.'),
     '#size' => 10,
   );
-  $form['commerce_kiala_tracktrace']['tracktrace_iframe_height'] = array(
+  $form_tracktrace['tracktrace_iframe_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height'),
     '#default_value' => isset($default_values['tracktrace_iframe_height']) ? $default_values['tracktrace_iframe_height'] : '',
@@ -433,26 +456,8 @@ function commerce_kiala_track_form_commerce_kiala_settings_form_alter(&$form, &$
   );
 
   /*
-  $form['commerce_kiala_tracktrace']['tracktrace_ws_params'] = array(
-    '#type' => 'fieldset',
-    '#collapsible' => !empty($default_values['tracktrace_ws_params']),
-    '#tree' => TRUE,
-    '#title' => t('URL Parameters'),
-    '#attributes' => array('class' => array('commerce-kiala-url-params')),
-  );
   if (!empty($default_values['tracktrace_ws_params'])) {
-    foreach ($default_values['tracktrace_ws_params'] as $param => $param_value) {
-      $form['commerce_kiala_tracktrace']['tracktrace_ws_params'][$param] = array(
-        '#type' => 'textfield',
-        '#field_prefix' => check_plain($param),
-        '#default_value' => $param_value,
-      );
-    }
-  }
-  else {
-    $form['commerce_kiala_tracktrace']['tracktrace_ws_params']['no_params'] = array(
-      '#markup' => t('No parameters defined'),
-    );
+    $form_ls_ws_search['tracktrace_ws_params'] = commerce_kiala_admin_settings_params_element($default_values['tracktrace_ws_params']);
   }*/
 }
 

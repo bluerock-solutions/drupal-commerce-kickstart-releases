@@ -749,4 +749,7 @@ function commerce_backoffice_content_views_default_views_alter(&$views) {
   if (isset($views['admin_views_node'])) {
     $views['admin_views_node']->disabled = TRUE;
   }
+  if (isset($views['admin_views_comment'])) {
+    $views['admin_views_comment']->disabled = TRUE;
+  }
 }

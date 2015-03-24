@@ -43,21 +43,21 @@ function jirafe_dashboard_admin_page($form, $form_state) {
       '#title' => t('Site information'),
       '#type' => 'fieldset',
     );
-    foreach($config['sites'] as $site) {
+    foreach ($config['sites'] as $site) {
       $form['site_info'][$site['site_id']] = array(
         '#title' => $site['description'],
         '#type' => 'fieldset',
       );
       $form['site_info'][$site['site_id']]['site_id'] = array(
         '#title' => t('Site ID'),
-        '#type' => 'textfield',
-        '#default_value' => $site['site_id'],
+        '#type' => 'item',
+        '#markup' => check_plain($site['site_id']),
         '#attributes' => array('readonly' => 'readonly'),
       );
       $form['site_info'][$site['site_id']]['site_url'] = array(
         '#title' => t('Site URL'),
-        '#type' => 'textfield',
-        '#default_value' => $site['url'],
+        '#type' => 'item',
+        '#markup' => check_plain($site['url']),
         '#attributes' => array('readonly' => 'readonly'),
       );
     }
@@ -68,15 +68,15 @@ function jirafe_dashboard_admin_page($form, $form_state) {
       '#title' => t('User information'),
       '#type' => 'fieldset',
     );
-    foreach($config['users'] as $index => $user) {
+    foreach ($config['users'] as $index => $user) {
       $form['user_info']['user_' . $index] = array(
         '#title' => "{$user['first_name']} {$user['last_name']}",
         '#type' => 'fieldset',
       );
       $form['user_info']['user_' . $index]['user_mail'] = array(
         '#title' => t('User mail'),
-        '#type' => 'textfield',
-        '#default_value' => $user['email'],
+        '#type' => 'item',
+        '#markup' => check_plain($user['email']),
         '#attributes' => array('readonly' => 'readonly'),
       );
     }
@@ -88,7 +88,35 @@ function jirafe_dashboard_admin_page($form, $form_state) {
     '#value' => t('Save'),
   );
 
+  if (!empty($config['app_id'])) {
+    $form['actions']['reset'] = array(
+      '#type' => 'submit',
+      '#value' => t('Reset'),
+      '#submit' => array('jirafe_dashboard_admin_page_reset'),
+    );
+  }
+
   return $form;
+}
+
+/**
+ * Submit callback for the Jirafa settings reset button.
+ *
+ * Nullify the Jirafe configuration.
+ */
+function jirafe_dashboard_admin_page_reset($form, $form_state) {
+  variable_set('jirafe_config', NULL);
+}
+
+/**
+ * Submit callback for the Jirafa settings form.
+ *
+ * Overwrite the Jirafe token and application ID.
+ */
+function jirafe_dashboard_admin_page_validate($form, $form_state) {
+  if (!is_numeric(trim($form_state['values']['app_id']))) {
+    form_set_error('app_id', t("The 'Application ID' should only contains numeric characters."));
+  }
 }
 
 /**

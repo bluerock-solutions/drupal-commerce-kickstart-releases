@@ -93,7 +93,9 @@
 .navigation .second-menu ul li,
 .zone-menu .block-menu ul li {
   display: inline;
-  float: inherit; }
+  float: inherit;
+  margin-right: 0;
+  margin-left: 0; }
   .navigation .primary-menu ul li a,
   .navigation .second-menu ul li a,
   .zone-menu .block-menu ul li a {

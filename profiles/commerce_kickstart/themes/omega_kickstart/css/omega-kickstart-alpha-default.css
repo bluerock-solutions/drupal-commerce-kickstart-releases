@@ -75,8 +75,9 @@
     width: 100%; }
     .navigation .primary-menu ul li,
     .navigation .second-menu ul li {
-      float: inherit;
       font-size: 0.8em;
+      margin-right: -4px;
+      /* LTR */
       width: auto; }
       .navigation .primary-menu ul li a,
       .navigation .second-menu ul li a {
@@ -95,6 +96,10 @@
       .navigation .primary-menu ul li.last a,
       .navigation .second-menu ul li.last a {
         border-right: 1px solid #cccccc;
+        /* LTR */
+        margin-right: 0;
+        /* LTR */
+        margin-left: -2px;
         /* LTR */ }
   .navigation .primary-menu {
     float: left;
