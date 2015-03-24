@@ -30,9 +30,12 @@ function omega_kickstart_preprocess_html(&$variables) {
  * http://drupal.org/node/1784780
  */
 function omega_kickstart_css_alter(&$css) {
-  foreach($css as $key => $item) {
-    if (isset($item['basename']) && LANGUAGE_RTL) {
-      $css[$item['basename']]['basename'] = 'RTL::' . $item['basename'];
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    foreach($css as $key => $item) {
+      if (isset($item['basename'])) {
+        $css[$key]['basename'] = 'RTL::' . $item['basename'];
+      }
     }
   }
 }

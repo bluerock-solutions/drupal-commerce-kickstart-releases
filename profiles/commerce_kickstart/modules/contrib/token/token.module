@@ -562,7 +562,10 @@ function _token_module($type, $name) {
  * uasort() callback to sort tokens by the 'name' property.
  */
 function token_asort_tokens($token_a, $token_b) {
-  return strnatcmp($token_a['name'], $token_b['name']);
+  if(isset($token_a['name']) && is_string($token_a['name']) && isset($token_b['name']) && is_string($token_b['name'])) {
+    return strnatcmp($token_a['name'], $token_b['name']);
+  }
+  return FALSE;
 }
 
 /**

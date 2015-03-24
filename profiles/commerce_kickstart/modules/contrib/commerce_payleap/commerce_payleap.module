@@ -19,7 +19,8 @@ define('PAYLEAP_TXN_TYPE_MANAGECONTRACT', 'manage_contract');
 define('PAYLEAP_TXN_TYPE_VOID', 'void');
 define('PAYLEAP_TXN_TYPE_FORCE', 'force');
 define('COMMERCE_PAYMENT_STATUS_CANCELED', 'canceled');
-
+// Tracking code provided by Payleap for Drupal Commerce.
+define('PAYLEAP_COMMERCE_PARTNER_ID', 'commerceguys298');
 
 /**
  * Implements hook_enable().
@@ -347,6 +348,7 @@ function commerce_payleap_cof_submit_form_submit($payment_method, $pane_form, $p
           'Zip' => $billing_data['zip'],
           'ExtData' => $billing_data['ext_data'],
         );
+
         $response = commerce_payleap_card_profile_request($payment_method, $info, 'Add');
 
         // If the CreditCardInfo creation was a success, store the new card on
@@ -377,6 +379,13 @@ function commerce_payleap_cof_submit_form_submit($payment_method, $pane_form, $p
     $payment_method['settings']['txn_payleap_type'] = PAYLEAP_TXN_TYPE_DIRECT_CAPTURE;
     return commerce_payleap_direct_submit_form_submit($payment_method, $pane_form, $pane_values, $order, $charge);
   }
+
+  // Send the tracking code.
+  $info['ExtData'] = '<CertifiedVendorId>' . PAYLEAP_COMMERCE_PARTNER_ID . '</CertifiedVendorId>';
+
+  $info += array(
+    'Amount' => commerce_currency_amount_to_decimal($charge['amount'], $charge['currency_code']),
+  );
 
   return commerce_payleap_transaction_process($payment_method, $info, $order, $charge);
 }
@@ -425,6 +434,9 @@ function commerce_payleap_direct_submit_form_submit($payment_method, $pane_form,
     'ExtData' => $billing_data['ext_data'],
   );
 
+  // Send the tracking code.
+  $info['ExtData'] = '<CertifiedVendorId>' . PAYLEAP_COMMERCE_PARTNER_ID . '</CertifiedVendorId>';
+
   return commerce_payleap_transaction_process($payment_method, $info, $order, $charge);
 }
 
@@ -446,7 +458,7 @@ function commerce_payleap_transaction_process($payment_method, $info, $order, $c
   $transaction->remote_status = $response['status'];
   $transaction->message = implode('<br />', commerce_payleap_get_log_message($response, $payment_method['settings']['txn_payleap_type']));
   // Set the transaction status based on the type of transaction this was.
-  if ($payment_method['settings']['txn_type'] == COMMERCE_CREDIT_AUTH_ONLY) {
+  if ($payment_method['settings']['txn_payleap_type'] == PAYLEAP_TXN_TYPE_DIRECT_CAPTURE && $payment_method['settings']['txn_type'] == COMMERCE_CREDIT_AUTH_ONLY) {
     $transaction->status = COMMERCE_PAYMENT_STATUS_PENDING;
   }
   else if ($response['status']) {
@@ -708,7 +720,8 @@ function commerce_payleap_request($payment_method, $info = array()) {
       $response['msg'] = (string) $xml->RespMSG;
     }
     elseif ($payment_method['settings']['txn_payleap_type'] == PAYLEAP_TXN_TYPE_RECURRING_CAPTURE) {
-      $response['status'] = ((string) $xml->Result == 'Fail') ? FALSE : TRUE;
+      // 0 - mean OK.
+      $response['status'] = ((string) $xml->Result === '0') ? TRUE : FALSE;
       $response['msg'] = (string) $xml->Message;
     }
     elseif ($payment_method['settings']['txn_payleap_type'] == PAYLEAP_TXN_TYPE_ADDRECURRINGCREDITCARD ||
