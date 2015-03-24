@@ -39,9 +39,9 @@ features[variable][] = site_404
 features[views_view][] = ad_push
 files[] = commerce_kickstart_merchandising.migrate.inc
 
-; Information added by drupal.org packaging script on 2013-01-17
-version = "7.x-2.1"
+; Information added by drupal.org packaging script on 2013-01-26
+version = "7.x-2.2"
 core = "7.x"
 project = "commerce_kickstart"
-datestamp = "1358444178"
+datestamp = "1359159361"
 
