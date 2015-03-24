@@ -57,6 +57,7 @@ dependencies[] = commerce_tax_ui
 
 ; Install Commerce services.
 dependencies[] = jirafe
+dependencies[] = yottaa
 
 ; Install contribs.
 dependencies[] = chosen
@@ -80,6 +81,7 @@ dependencies[] = commerce_backoffice_product
 dependencies[] = commerce_backoffice_order
 dependencies[] = commerce_backoffice_content
 dependencies[] = commerce_checkout_progress
+dependencies[] = commerce_hosted_pci
 dependencies[] = menu_attributes
 dependencies[] = fences
 dependencies[] = title
@@ -113,9 +115,9 @@ dependencies[] = commerce_kickstart_service_provider
 ; System Requirements.
 php_memory_limit = 128M
 
-; Information added by drupal.org packaging script on 2012-12-20
-version = "7.x-2.0"
+; Information added by drupal.org packaging script on 2013-01-17
+version = "7.x-2.1"
 core = "7.x"
 project = "commerce_kickstart"
-datestamp = "1356001007"
+datestamp = "1358444178"
 

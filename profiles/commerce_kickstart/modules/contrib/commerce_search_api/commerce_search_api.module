@@ -240,17 +240,18 @@ function commerce_search_api_generate_facets($index_machine_name) {
   foreach (facetapi_get_facet_info($searcher) as $field_name => $facet_info) {
     $export_facet = FALSE;
     if (isset($facet_info['field type']) && $facet_info['field type'] == 'taxonomy_term') {
-      $facet = $adapter->getFacetSettings($facet_info, $realm);
       $widget = 'facetapi_checkbox_links';
       $export_facet = TRUE;
     }
     if ($search_api_ranges_exists && strpos($field_name, ':amount_decimal') !== FALSE) {
-      $facet = $adapter->getFacetSettings($facet_info, $realm);
       $widget = 'search_api_ranges_ui_slider';
       $export_facet = TRUE;
     }
     if ($export_facet) {
       $facet = $adapter->getFacetSettings($facet_info, $realm);
+      if ($facet->export_type == EXPORT_IN_DATABASE) {
+        continue;
+      }
       $facet->settings['widget'] = $widget;
       $facet->settings['filters'] += array(
         'active_items' => array(
