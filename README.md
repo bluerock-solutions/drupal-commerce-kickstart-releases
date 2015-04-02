@@ -12,7 +12,13 @@ The submodule deployment versions with no sites directory are on the 'no_sites' 
 
 #####To update Drupal in a project:
 
-* `git submodule update --remote drupal`
+* Either this (simple update to latest no_sites but will remove your sites symlink)
+    * `git submodule update --remote drupal`
+* Or this
+    * `cd drupal`
+    * `git fetch`
+    * `git checkout no_sites` # Can replace no_sites with nosites/x.yz if you want a specific version
+    * `cd -`
 * Commit update
 
 #####To import a new upstream release:
