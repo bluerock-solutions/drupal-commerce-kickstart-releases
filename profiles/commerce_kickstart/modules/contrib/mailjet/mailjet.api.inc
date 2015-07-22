@@ -5,9 +5,14 @@
  * Connect your Apps and Make our product yours with our powerful API
  * http://www.mailjet.com/ Mailjet SAS Website
  *
+ * @author		David Coullet
+ * @author		Mailjet Dev team
  * @copyright	Copyright (c) 2012-2013, Mailjet SAS, http://www.mailjet.com/Terms-of-use.htm
  * @file
  */
+
+// ---------------------------------------------------------------------
+
 
 /**
  * Mailjet Public API Main Class
@@ -18,6 +23,8 @@
  * updated on 2013-08-11
  *
  * @class		Api
+ * @author		David Coullet
+ * @author		Mailjet Dev team
  * @version		0.2
  */
 class MailJet
@@ -245,7 +252,7 @@ class MailJet
     	curl_setopt($this->_curl_handle, CURLOPT_HTTPHEADER, array("Content-Type: ".$contType));
     	curl_setopt($this->_curl_handle, CURLOPT_SSL_VERIFYPEER, FALSE);
     	curl_setopt($this->_curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
-
+        curl_setopt($this->_curl_handle, CURLOPT_USERAGENT, 'drupal-3.0');
     	curl_setopt($this->_curl_handle, CURLOPT_USERPWD, $this->_apiKey.':'.$this->_secretKey);
 
     	if ($lastID) {
@@ -690,7 +697,8 @@ class MailJet
         curl_setopt($this->_curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($this->_curl_handle, CURLOPT_TIMEOUT, 10); //timeout in seconds
         curl_setopt($this->_curl_handle, CURLOPT_USERPWD, $this->_apiKey.':'.$this->_secretKey);
-
+        curl_setopt($this->_curl_handle, CURLOPT_USERAGENT, 'drupal-3.0');
+    	
         switch ($request) {
             case 'GET' :
                 curl_setopt($this->_curl_handle, CURLOPT_CUSTOMREQUEST, 'GET');

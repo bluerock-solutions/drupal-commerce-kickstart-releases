@@ -464,7 +464,7 @@ class MailjetSmtpMailSystem implements MailSystemInterface {
 
     // Set other connection settings.
     //$mailer->Host   = variable_get('mailjet_host', 'pp-leela1.mailjet.com');
-    $mailer->Host   = variable_get('mailjet_host', 'in.mailjet.com');
+    $mailer->Host   = variable_get('mailjet_host', 'in-v3.mailjet.com');
     $mailer->Port   = variable_get('mailjet_port', '587');
     $mailer->Mailer = 'smtp';
 

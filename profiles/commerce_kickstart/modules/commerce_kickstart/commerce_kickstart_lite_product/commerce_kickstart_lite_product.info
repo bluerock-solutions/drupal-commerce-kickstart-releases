@@ -23,7 +23,6 @@ dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = text
 dependencies[] = title
-features[commerce_product_type][] = product
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[field_base][] = body
@@ -42,8 +41,6 @@ features[field_instance][] = node-product_display-title_field
 features[image][] = product_full
 features[image][] = product_medium
 features[image][] = product_thumbnail
-features[node][] = product_display
-features[taxonomy][] = product_category
 features[variable][] = comment_product_display
 features[variable][] = comment_subject_field_product_display
 features[variable][] = field_bundle_settings_commerce_product__product
@@ -57,9 +54,9 @@ features[variable][] = pathauto_punctuation_hyphen
 features[variable][] = pathauto_taxonomy_term_pattern
 files[] = commerce_kickstart_lite_product.migrate.inc
 
-; Information added by Drupal.org packaging script on 2015-05-22
-version = "7.x-2.25"
+; Information added by Drupal.org packaging script on 2015-07-10
+version = "7.x-2.26"
 core = "7.x"
 project = "commerce_kickstart"
-datestamp = "1432329281"
+datestamp = "1436555946"
 

@@ -208,7 +208,7 @@ function _mailjet_campaign_alter_callback() {
   		watchdog('mailjet-danny2', $html);
 
   		$res = array(
-		    "code" => 1, // Necessary for Mailjet's system to proceed.
+		    "code" => 1, // necessary for Mailjet's system to proceed
 		    "continue" => true,
 		    "continue_address" => $_POST['data']['next_step_url'],
 		    "block_content" => $html,
@@ -219,7 +219,7 @@ function _mailjet_campaign_alter_callback() {
 	  }
   }
   $res = array(
-    "code" => 1, // Necessary for Mailjet's system to proceed.
+    "code" => 1, // necessary for Mailjet's system to proceed
     "continue" => true,
     "continue_address" => $_POST['data']['next_step_url'],
   );
