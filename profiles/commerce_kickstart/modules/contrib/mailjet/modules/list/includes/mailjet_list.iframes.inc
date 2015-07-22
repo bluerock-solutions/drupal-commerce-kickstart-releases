@@ -12,9 +12,16 @@ function mailjet_list_iframe() {
   $token = variable_get("APItoken");
   if (!empty($token)) {
     global $base_url;
-    $callbackurl = 'r=commerceguys&t='.$token.'&show_menu=none&u=Drupal-3.0';
+    global $language;
+  
+    $langCodesMap = array('en' => 'en_US', 'fr' => 'fr_FR', 'de' => 'de_DE', 'es' => 'es_ES');
+    $defaultLang = 'en';
+    $locale = isset($langCodesMap[$language->language]) ? $langCodesMap[$language->language] : $langCodesMap[$defaultLang];
+    
+    
+    $callbackurl = 'r=commerceguys&t='.$token.'&show_menu=none&u=Drupal-3.0&locale='.$locale;
 
-    $default_url = IFRAME_URL."/contacts/lists/?";
+    $default_url = IFRAME_URL."contacts/lists/?";
 
     return '<iframe src="' . $default_url . $callbackurl . '" width="100%" height="1080px" frameborder="0"></iframe>';
   }

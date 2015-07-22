@@ -8,7 +8,7 @@
 /**
  * Implements hook_help().
  */
-define("IFRAME_URL", "https://www.mailjet.com/");
+define("IFRAME_URL", "https://app.mailjet.com/");
 
 function mailjet_help($path, $arg)
 {
@@ -28,7 +28,7 @@ function mailjet_menu()
         'title' => 'Mailjet',
         'description' => 'Send your emails by your Mailjet API.',
         'page callback' => 'system_admin_menu_block_page',
-        'access arguments' => array('administer site configuration'),
+        'access arguments' => array('access administration pages'),
         'type' => MENU_NORMAL_ITEM,
         'file path' => drupal_get_path('module', 'system'),
         'file' => 'system.admin.inc',
@@ -139,43 +139,41 @@ function mailjet_menu()
     return $items;
 }
 
-   /**
-     * Form callback for adding a domain.
-     */
-    function mailjet_domains_add_form($form_state)
-    {
-        $form = array();
+/**
+ * Form callback for adding a domain.
+ */
+function mailjet_domains_add_form($form_state){
+    $form = array();
 
-        $form['domain'] = array(
-            '#type' => 'textfield',
-            '#title' => t('Domain'),
-            '#description' => t('The domain you are adding to MailJet.'),
-            '#required' => TRUE
-        );
+    $form['domain'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Domain'),
+        '#description' => t('The domain you are adding to MailJet.'),
+        '#required' => TRUE
+    );
 
-        $form['submit'] = array(
-            '#type' => 'submit',
-            '#value' => t('Add'),
-        );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Add'),
+    );
 
-        return $form;
+    return $form;
+}
+
+/**
+* Submit callback for adding a domian.
+*/
+function mailjet_domains_add_form_submit($form, &$form_state) {
+    $domain = $form_state['values']['domain'];
+    if (mailjet_user_domain_add($domain)) {
+        drupal_set_message(t('Your domain @domain has successfully been added to MailJet. You will need to create a text file to confirm domain ownership.', array(
+            '@domain' => $domain
+        )));
+        drupal_goto('admin/config/system/mailjet/domains');
+    } else {
+        return FALSE;
     }
-
-    /**
-     * Submit callback for adding a domian.
-     */
-    function mailjet_domains_add_form_submit($form, &$form_state)
-    {
-        $domain = $form_state['values']['domain'];
-        if (mailjet_user_domain_add($domain)) {
-            drupal_set_message(t('Your domain @domain has successfully been added to MailJet. You will need to create a text file to confirm domain ownership.', array(
-                '@domain' => $domain
-            )));
-            drupal_goto('admin/config/system/mailjet/domains');
-        } else {
-            return FALSE;
-        }
-    }
+}
 
 /**
  * Redirects to external links.
@@ -678,9 +676,9 @@ function mailjet_sync_single_user($infos, $type)
         $mj_lists = explode(",", $user[$infos['mail']]['mj_lists']);
         $mj_lists = array_diff($mj_lists, array(''));
     }
-    if (!empty($defaul_mj_list)) {
+    //if (!empty($defaul_mj_list)) {
         $mj_lists[] = mailjet_get_default_list_id($mailjet);
-    }
+    //}
 
     switch ($type) {
         case 'add':
